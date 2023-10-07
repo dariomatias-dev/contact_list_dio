@@ -6,12 +6,43 @@ import 'package:contact_list/src/widgets/contact_card_widget/slidable_action_wid
 class ContactCardWidget extends StatelessWidget {
   const ContactCardWidget({
     super.key,
+    required this.screenContext,
     required this.name,
     required this.number,
   });
 
+  final BuildContext screenContext;
   final String name;
   final String number;
+
+  void _showAlertDialog() {
+    showDialog(
+      context: screenContext,
+      builder: (alertDialogContext) {
+        return AlertDialog(
+          title: const Text('Aviso'),
+          content: const Text(
+            'Ao excluir o contato não será possível recuperá-lo, tenha certeza que realmente quer excluí-lo.',
+            textAlign: TextAlign.justify,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(alertDialogContext);
+              },
+              child: const Text('Voltar'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(alertDialogContext);
+              },
+              child: const Text('Excluir'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +59,7 @@ class ContactCardWidget extends StatelessWidget {
           SlidableActionWidget(
             title: 'Remover',
             icon: Icons.delete,
-            action: () {},
+            action: _showAlertDialog,
           ),
         ],
       ),

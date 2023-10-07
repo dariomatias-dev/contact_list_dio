@@ -85,6 +85,7 @@ class HomeScreen extends StatelessWidget {
                 final ContactListModel contact = contacts.elementAt(index);
 
                 return ContactCardWidget(
+                  screenContext: context,
                   name: contact.name,
                   number: contact.number,
                 );
