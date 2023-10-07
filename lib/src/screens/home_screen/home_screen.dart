@@ -1,5 +1,6 @@
-import 'package:contact_list/src/widgets/contact_card_widget.dart';
 import 'package:flutter/material.dart';
+
+import 'package:contact_list/src/widgets/contact_card_widget/contact_card_widget.dart';
 
 class ContactListModel {
   ContactListModel({
@@ -63,33 +64,33 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20.0,
-          ),
-          child: Column(
-            children: <Widget>[
-              const Divider(),
-              ListView.separated(
-                itemCount: contacts.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    height: 10.0,
-                  );
-                },
-                itemBuilder: (context, index) {
-                  final ContactListModel contact = contacts.elementAt(index);
-
-                  return ContactCardWidget(
-                    name: contact.name,
-                    number: contact.number,
-                  );
-                },
+        child: Column(
+          children: <Widget>[
+            const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.0,
               ),
-            ],
-          ),
+              child: Divider(),
+            ),
+            ListView.separated(
+              itemCount: contacts.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              separatorBuilder: (context, index) {
+                return const SizedBox(
+                  height: 10.0,
+                );
+              },
+              itemBuilder: (context, index) {
+                final ContactListModel contact = contacts.elementAt(index);
+
+                return ContactCardWidget(
+                  name: contact.name,
+                  number: contact.number,
+                );
+              },
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
