@@ -1,37 +1,31 @@
-import 'package:contact_list/src/core/routes/contact_list_route_names.dart';
-import 'package:contact_list/src/screens/search_screen/search_screen.dart';
 import 'package:flutter/material.dart';
 
-import 'package:contact_list/src/widgets/contact_card_widget/contact_card_widget.dart';
+import 'package:contact_list/src/core/helpers/navigation_fade_transition_help.dart';
+import 'package:contact_list/src/core/routes/contact_list_route_names.dart';
 
-class ContactListModel {
-  ContactListModel({
-    required this.name,
-    required this.number,
-  });
+import 'package:contact_list/src/models/contact_model.dart';
 
-  final String name;
-  final String number;
-}
+import 'package:contact_list/src/screens/home_screen/components/home_screen_body_content_widget.dart';
+import 'package:contact_list/src/screens/search_screen/search_screen.dart';
 
-final List<ContactListModel> contacts = <ContactListModel>[
-  ContactListModel(
+final List<ContactModel> contacts = <ContactModel>[
+  ContactModel(
     name: 'Dário',
     number: '+55 (83) 98640-4371',
   ),
-  ContactListModel(
+  ContactModel(
     name: 'Silva',
     number: '+55 (83) 97832-0725',
   ),
-  ContactListModel(
+  ContactModel(
     name: 'Luiz',
     number: '+55 (83) 96293-0265',
   ),
-  ContactListModel(
+  ContactModel(
     name: 'Mariana',
     number: '+55 (83) 97143-7193',
   ),
-  ContactListModel(
+  ContactModel(
     name: 'Clara',
     number: '+55 (83) 99165-9105',
   ),
@@ -57,30 +51,10 @@ class HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).push(
-                PageRouteBuilder(
-                  settings: const RouteSettings(
-                    name: ContactListRouteNames.search,
-                  ),
-                  pageBuilder: (
-                    context,
-                    animation,
-                    secondaryAnimation,
-                  ) {
-                    return const SearchScreen();
-                  },
-                  transitionsBuilder: (
-                    context,
-                    animation,
-                    secondaryAnimation,
-                    child,
-                  ) {
-                    return FadeTransition(
-                      opacity: animation,
-                      child: child,
-                    );
-                  },
-                ),
+              navigationFadeTransitionHelp(
+                context,
+                ContactListRouteNames.search,
+                () => const SearchScreen(),
               );
             },
             icon: Icon(
@@ -91,36 +65,8 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(width: 10.0),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20.0,
-              ),
-              child: Divider(),
-            ),
-            ListView.separated(
-              itemCount: contacts.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              separatorBuilder: (context, index) {
-                return const SizedBox(
-                  height: 10.0,
-                );
-              },
-              itemBuilder: (context, index) {
-                final ContactListModel contact = contacts.elementAt(index);
-
-                return ContactCardWidget(
-                  screenContext: context,
-                  name: contact.name,
-                  number: contact.number,
-                );
-              },
-            ),
-          ],
-        ),
+      body: HomeScreenBodyContentWidget(
+        contacts: contacts,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},

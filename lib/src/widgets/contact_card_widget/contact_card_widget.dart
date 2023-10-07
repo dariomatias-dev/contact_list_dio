@@ -55,11 +55,13 @@ class ContactCardWidget extends StatelessWidget {
             title: 'Editar',
             icon: Icons.edit,
             action: () {},
+            backgroundColor: Colors.blue.shade400,
           ),
           SlidableActionWidget(
             title: 'Remover',
             icon: Icons.delete,
             action: _showAlertDialog,
+            backgroundColor: Colors.red.shade400,
           ),
         ],
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:contact_list/src/screens/search_screen/components/research_field_widget.dart';
+
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
 
@@ -25,40 +27,8 @@ class SearchScreen extends StatelessWidget {
             ),
           ),
         ),
-        actions: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 48.0,
-                right: 10.0,
-              ),
-              child: Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Digite o contato',
-                      filled: true,
-                      fillColor: Colors.grey.shade100,
-                      prefixIcon: const Icon(Icons.search_sharp),
-                      prefixIconColor: Colors.grey,
-                      suffixIcon: GestureDetector(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.clear_rounded,
-                          color: Colors.grey.shade800,
-                        ),
-                      ),
-                      border: InputBorder.none,
-                    ),
-                    onTapOutside: (_) {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ),
+        actions: const <Widget>[
+          ResearchFieldWidget(),
         ],
       ),
     );
