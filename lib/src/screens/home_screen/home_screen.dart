@@ -1,3 +1,5 @@
+import 'package:contact_list/src/core/routes/contact_list_route_names.dart';
+import 'package:contact_list/src/screens/search_screen/search_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/widgets/contact_card_widget/contact_card_widget.dart';
@@ -54,7 +56,33 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                  settings: const RouteSettings(
+                    name: ContactListRouteNames.search,
+                  ),
+                  pageBuilder: (
+                    context,
+                    animation,
+                    secondaryAnimation,
+                  ) {
+                    return const SearchScreen();
+                  },
+                  transitionsBuilder: (
+                    context,
+                    animation,
+                    secondaryAnimation,
+                    child,
+                  ) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                ),
+              );
+            },
             icon: Icon(
               Icons.search_sharp,
               color: Colors.blue.shade400,
