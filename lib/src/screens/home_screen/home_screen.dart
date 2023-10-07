@@ -43,7 +43,7 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          'Lista de Contatos',
+          'Contatos',
           style: TextStyle(
             color: Colors.black,
           ),
@@ -51,34 +51,25 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.search_sharp,
+              color: Colors.blue.shade400,
+            ),
+          ),
+          const SizedBox(width: 10.0),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 10.0,
+            horizontal: 20.0,
           ),
           child: Column(
-            children: [
-              SizedBox(
-                height: 50.0,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    suffixIcon: GestureDetector(
-                      onTap: () {},
-                      child: const Icon(
-                        Icons.clear_rounded,
-                      ),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(40.0),
-                    ),
-                    prefixIcon: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.search_sharp),
-                    ),
-                  ),
-                ),
-              ),
+            children: <Widget>[
+              const Divider(),
               ListView.builder(
                 itemCount: contacts.length,
                 shrinkWrap: true,
@@ -98,6 +89,7 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
+        backgroundColor: Colors.blue.shade400,
         child: const Icon(Icons.add),
       ),
     );

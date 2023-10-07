@@ -18,10 +18,6 @@ class ContactCardWidget extends StatelessWidget {
       ),
       title: Text(name),
       subtitle: Text(number),
-      trailing: IconButton(
-        onPressed: () {},
-        icon: const Icon(Icons.more_vert_rounded),
-      ),
     );
   }
 }
