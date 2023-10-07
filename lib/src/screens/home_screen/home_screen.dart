@@ -70,10 +70,15 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: <Widget>[
               const Divider(),
-              ListView.builder(
+              ListView.separated(
                 itemCount: contacts.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    height: 10.0,
+                  );
+                },
                 itemBuilder: (context, index) {
                   final ContactListModel contact = contacts.elementAt(index);
 
