@@ -37,8 +37,7 @@ class HomeScreenBodyContentWidget extends StatelessWidget {
 
               return ContactCardWidget(
                 screenContext: context,
-                name: contact.name,
-                number: contact.number,
+                contact: contact,
               );
             },
           ),
