@@ -53,12 +53,12 @@ final List<ContactModel> contacts = <ContactModel>[
   ),
   ContactModel(
     name: 'Clara',
-    nickname:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    nickname: '',
     number: '+55 (83) 99165-9105',
     email: 'clara@gmail.com',
     address: 'Avenida Principal, 456',
-    grades: '',
+    grades:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
     createdAt: DateTime(2023, 5, 20),
     updatedAt: DateTime(2023, 9, 25),
   ),
