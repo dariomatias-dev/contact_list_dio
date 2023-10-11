@@ -1,9 +1,12 @@
-import 'package:contact_list/src/screens/contact_screen/components/contact_screen_body_content.dart';
 import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/models/contact_model.dart';
 
-class ContactScreen extends StatelessWidget {
+import 'package:contact_list/src/screens/contact_screen/components/contact_screen_body_content.dart';
+
+import 'package:contact_list/src/widgets/custom_app_bar_widget.dart';
+
+class ContactScreen extends StatelessWidget  {
   const ContactScreen({
     super.key,
     required this.contact,
@@ -15,27 +18,8 @@ class ContactScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: Tooltip(
-          message: 'Sair',
-          child: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-          ),
-        ),
-        title: const Text(
-          'Contato',
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
+      appBar: const CustomAppBarWidget(
+        title: 'Contato',
       ),
       body: SingleChildScrollView(
         child: ContactScreenBodyContent(

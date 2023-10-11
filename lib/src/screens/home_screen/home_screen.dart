@@ -1,3 +1,4 @@
+import 'package:contact_list/src/screens/contact_form_screen/contact_form_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/core/helpers/navigation_fade_transition_help.dart';
@@ -102,7 +103,13 @@ class HomeScreen extends StatelessWidget {
         contacts: contacts,
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          navigationFadeTransitionHelp(
+            context,
+            ContactListRouteNames.contactForm,
+            () => const ContactFormScreen(),
+          );
+        },
         backgroundColor: Colors.blue.shade400,
         child: const Icon(Icons.add),
       ),
