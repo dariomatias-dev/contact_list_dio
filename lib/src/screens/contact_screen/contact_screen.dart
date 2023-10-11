@@ -17,7 +17,7 @@ class ContactScreen extends StatelessWidget  {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade50,
       appBar: const CustomAppBarWidget(
         title: 'Contato',
       ),

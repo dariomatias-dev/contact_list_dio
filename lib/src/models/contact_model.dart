@@ -1,20 +1,20 @@
 class ContactModel {
   ContactModel({
     required this.name,
-    required this.nickname,
+    this.nickname,
     required this.number,
-    required this.email,
-    required this.address,
+    this.email,
+    this.address,
     required this.grades,
     required this.createdAt,
     required this.updatedAt,
   });
 
   final String name;
-  final String nickname;
+  final String? nickname;
   final String number;
-  final String email;
-  final String address;
+  final String? email;
+  final String? address;
   final String grades;
   final DateTime createdAt;
   final DateTime updatedAt;

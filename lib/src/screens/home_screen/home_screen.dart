@@ -12,7 +12,6 @@ import 'package:contact_list/src/screens/search_screen/search_screen.dart';
 final List<ContactModel> contacts = <ContactModel>[
   ContactModel(
     name: 'Dário',
-    nickname: '',
     number: '+55 (83) 98640-4371',
     email: 'matiasdario75@gmail.com',
     address: 'Praça Central, 789',
@@ -54,7 +53,6 @@ final List<ContactModel> contacts = <ContactModel>[
   ),
   ContactModel(
     name: 'Clara',
-    nickname: '',
     number: '+55 (83) 99165-9105',
     email: 'clara@gmail.com',
     address: 'Avenida Principal, 456',
