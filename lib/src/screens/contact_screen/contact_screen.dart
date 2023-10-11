@@ -6,7 +6,7 @@ import 'package:contact_list/src/screens/contact_screen/components/contact_scree
 
 import 'package:contact_list/src/widgets/custom_app_bar_widget.dart';
 
-class ContactScreen extends StatelessWidget  {
+class ContactScreen extends StatelessWidget {
   const ContactScreen({
     super.key,
     required this.contact,
@@ -14,12 +14,64 @@ class ContactScreen extends StatelessWidget  {
 
   final ContactModel contact;
 
+  void updateContact(BuildContext screenContext) {
+    _showAlertDialog(screenContext, 'Atualizar contato');
+  }
+
+  void deleteContact(BuildContext screenContext) {
+    _showAlertDialog(screenContext, 'Excluir contato');
+  }
+
+  void _showAlertDialog(BuildContext screenContext, String title) {
+    showDialog(
+      context: screenContext,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(title),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
-      appBar: const CustomAppBarWidget(
+      appBar: CustomAppBarWidget(
         title: 'Contato',
+        actions: <Widget>[
+          PopupMenuButton(
+            icon: const Icon(
+              Icons.more_vert_rounded,
+              color: Colors.black,
+            ),
+            onSelected: (value) {
+              value(context);
+            },
+            itemBuilder: (context) => <PopupMenuItem>[
+              PopupMenuItem(
+                value: updateContact,
+                child: const Text(
+                  'Atualizar',
+                ),
+              ),
+              PopupMenuItem(
+                value: deleteContact,
+                child: const Text(
+                  'Excluir',
+                ),
+              ),
+            ],
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: ContactScreenBodyContent(

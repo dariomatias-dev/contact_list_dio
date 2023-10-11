@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:contact_list/src/models/contact_model.dart';
-import 'package:intl/intl.dart';
 
 class ContactScreenBodyContent extends StatelessWidget {
   const ContactScreenBodyContent({
