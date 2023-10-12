@@ -107,7 +107,21 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                 );
               },
             ),
-            const SizedBox(height: 28.0),
+            const SizedBox(height: 24.0),
+            SizedBox(
+              width: double.infinity,
+              height: 50.0,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                child: const Text('Adicionar'),
+              ),
+            ),
+            const SizedBox(height: 16.0),
           ],
         ),
       ),
