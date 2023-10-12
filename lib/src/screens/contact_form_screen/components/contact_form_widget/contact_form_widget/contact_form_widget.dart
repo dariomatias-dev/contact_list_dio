@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:contact_list/src/models/form_field_model.dart';
+
 import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/choose_avatar_icon_widget.dart';
+import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/contact_form_widget/form_field_widget.dart';
+import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/contact_form_widget/form_fields.dart';
 
 class ContactFormWidget extends StatefulWidget {
   const ContactFormWidget({super.key});
@@ -23,39 +27,14 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
 
   @override
   void initState() {
-    _formFields = [
-      FormFieldModel(
-        title: 'Nome',
-        placeholder: 'Dário Matias',
-        controller: _nameFieldController,
-      ),
-      FormFieldModel(
-        title: 'Apelido',
-        placeholder: '',
-        controller: _nicknameFieldController,
-      ),
-      FormFieldModel(
-        title: 'Número',
-        placeholder: '+55 (83) 98640-4371',
-        controller: _numberFieldController,
-      ),
-      FormFieldModel(
-        title: 'Email',
-        placeholder: 'matiasdario75@gmail.com',
-        controller: _emailFieldController,
-      ),
-      FormFieldModel(
-        title: 'Endereço',
-        placeholder: '',
-        controller: _addressFieldController,
-      ),
-      FormFieldModel(
-        title: 'Nota',
-        placeholder: 'Ocupado durante a manhã',
-        controller: _gradesFieldController,
-        maxLines: 6,
-      ),
-    ];
+    _formFields = formFields([
+      _nameFieldController,
+      _nicknameFieldController,
+      _numberFieldController,
+      _emailFieldController,
+      _addressFieldController,
+      _gradesFieldController,
+    ]);
 
     super.initState();
   }
@@ -127,41 +106,4 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
       ),
     );
   }
-}
-
-class FormFieldWidget extends StatelessWidget {
-  const FormFieldWidget({
-    super.key,
-    required this.formField,
-  });
-
-  final FormFieldModel formField;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: formField.controller,
-      maxLines: formField.maxLines,
-      decoration: InputDecoration(
-        border: const OutlineInputBorder(),
-        labelText: formField.title,
-        alignLabelWithHint: true,
-        hintText: formField.placeholder,
-      ),
-    );
-  }
-}
-
-class FormFieldModel {
-  FormFieldModel({
-    required this.title,
-    required this.placeholder,
-    required this.controller,
-    this.maxLines,
-  });
-
-  final String title;
-  final String placeholder;
-  final TextEditingController controller;
-  final int? maxLines;
 }
