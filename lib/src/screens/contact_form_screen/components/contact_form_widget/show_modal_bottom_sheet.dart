@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-void showOptions(BuildContext screenContext) {
+void showOptions(
+  BuildContext screenContext,
+  VoidCallback deleteImageFile,
+  Future<void> Function(ImageSource) pick,
+) {
   showModalBottomSheet(
     context: screenContext,
     shape: const RoundedRectangleBorder(
@@ -24,21 +29,30 @@ void showOptions(BuildContext screenContext) {
             ),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              pick(ImageSource.gallery);
+              Navigator.pop(context);
+            },
             leading: const Icon(
               Icons.photo,
             ),
             title: const Text('Galeria'),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              pick(ImageSource.camera);
+              Navigator.pop(context);
+            },
             leading: const Icon(
               Icons.camera_alt_rounded,
             ),
             title: const Text('Câmera'),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              deleteImageFile();
+              Navigator.pop(context);
+            },
             leading: const Icon(
               Icons.delete_outline_rounded,
             ),
