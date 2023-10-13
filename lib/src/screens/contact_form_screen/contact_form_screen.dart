@@ -9,13 +9,15 @@ class ContactFormScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBarWidget(
+      appBar: const CustomAppBarWidget(
         title: 'Adicionar contato',
       ),
       body: SingleChildScrollView(
-        child: ContactFormWidget(),
+        child: ContactFormWidget(
+          screenContext: context,
+        ),
       ),
     );
   }

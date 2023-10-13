@@ -1,6 +1,7 @@
-import 'package:contact_list/src/models/contact_model.dart';
+import 'package:contact_list/src/services/contacts_service.dart';
 import 'package:flutter/material.dart';
 
+import 'package:contact_list/src/models/contact_model.dart';
 import 'package:contact_list/src/models/form_field_model.dart';
 
 import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/choose_avatar_icon_widget.dart';
@@ -8,13 +9,19 @@ import 'package:contact_list/src/screens/contact_form_screen/components/contact_
 import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/contact_form_widget/form_fields.dart';
 
 class ContactFormWidget extends StatefulWidget {
-  const ContactFormWidget({super.key});
+  const ContactFormWidget({
+    super.key,
+    required this.screenContext,
+  });
+
+  final BuildContext screenContext;
 
   @override
   State<ContactFormWidget> createState() => _ContactFormWidgetState();
 }
 
 class _ContactFormWidgetState extends State<ContactFormWidget> {
+  final ContactsService contactsService = ContactsService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   List<FormFieldModel> _formFields = [];
 
@@ -116,7 +123,9 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                       grades: grades,
                     );
 
-                    print(contact.number);
+                    contactsService.createContact(contact);
+
+                    Navigator.pop(widget.screenContext);
                   }
                 },
                 style: ElevatedButton.styleFrom(
