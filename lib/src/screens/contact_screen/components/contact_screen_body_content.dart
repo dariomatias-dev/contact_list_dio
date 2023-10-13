@@ -17,8 +17,8 @@ class ContactScreenBodyContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String createdAt = formatDate(contact.createdAt);
-    final String updatedAt = formatDate(contact.updatedAt);
+    final String createdAt = formatDate(contact.createdAt!);
+    final String updatedAt = formatDate(contact.updatedAt!);
 
     return SizedBox(
       width: double.infinity,

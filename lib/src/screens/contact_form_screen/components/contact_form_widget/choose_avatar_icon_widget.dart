@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,9 +10,11 @@ class ChooseAvatarIconWidget extends StatefulWidget {
   const ChooseAvatarIconWidget({
     super.key,
     required this.screenContext,
+    required this.updateProfilePicturePath,
   });
 
   final BuildContext screenContext;
+  final void Function(String?) updateProfilePicturePath;
 
   @override
   State<ChooseAvatarIconWidget> createState() => _ChooseAvatarIconWidgetState();
@@ -19,11 +22,12 @@ class ChooseAvatarIconWidget extends StatefulWidget {
 
 class _ChooseAvatarIconWidgetState extends State<ChooseAvatarIconWidget> {
   final ImagePicker imagePicker = ImagePicker();
-  File? imageFile;
+  String? profilePicturePath;
 
   void deleteImageFile() {
+    widget.updateProfilePicturePath(null);
     setState(() {
-      imageFile = null;
+      profilePicturePath = null;
     });
   }
 
@@ -52,8 +56,9 @@ class _ChooseAvatarIconWidgetState extends State<ChooseAvatarIconWidget> {
       );
 
       if (croppedFile != null) {
+        widget.updateProfilePicturePath(croppedFile.path);
         setState(() {
-          imageFile = File(croppedFile.path);
+          profilePicturePath = croppedFile.path;
         });
       }
     }
@@ -76,9 +81,12 @@ class _ChooseAvatarIconWidgetState extends State<ChooseAvatarIconWidget> {
                 CircleAvatar(
                   radius: 70,
                   backgroundColor: Colors.grey.shade100,
-                  backgroundImage:
-                      imageFile != null ? FileImage(imageFile!) : null,
-                  child: imageFile == null
+                  backgroundImage: profilePicturePath != null
+                      ? FileImage(
+                          File(profilePicturePath!),
+                        )
+                      : null,
+                  child: profilePicturePath == null
                       ? Icon(
                           Icons.person,
                           color: Colors.grey.shade500,

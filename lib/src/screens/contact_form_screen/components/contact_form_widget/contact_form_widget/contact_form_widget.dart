@@ -1,3 +1,4 @@
+import 'package:contact_list/src/models/contact_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/models/form_field_model.dart';
@@ -17,6 +18,7 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   List<FormFieldModel> _formFields = [];
 
+  String? profilePicturePath;
   final TextEditingController _nameFieldController = TextEditingController();
   final TextEditingController _nicknameFieldController =
       TextEditingController();
@@ -24,6 +26,10 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
   final TextEditingController _emailFieldController = TextEditingController();
   final TextEditingController _addressFieldController = TextEditingController();
   final TextEditingController _gradesFieldController = TextEditingController();
+
+  void updateProfilePicturePath(String? path) {
+    profilePicturePath = path;
+  }
 
   @override
   void initState() {
@@ -69,6 +75,7 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
             const SizedBox(height: 20.0),
             ChooseAvatarIconWidget(
               screenContext: context,
+              updateProfilePicturePath: updateProfilePicturePath,
             ),
             const SizedBox(height: 16.0),
             ListView.separated(
@@ -91,7 +98,27 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
               width: double.infinity,
               height: 50.0,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    final String name = _nameFieldController.text;
+                    final String nickname = _nicknameFieldController.text;
+                    final String number = _numberFieldController.text;
+                    final String email = _emailFieldController.text;
+                    final String address = _addressFieldController.text;
+                    final String grades = _gradesFieldController.text;
+
+                    final ContactModel contact = ContactModel(
+                      name: name,
+                      nickname: nickname,
+                      number: number,
+                      email: email,
+                      address: address,
+                      grades: grades,
+                    );
+
+                    print(contact.number);
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0),

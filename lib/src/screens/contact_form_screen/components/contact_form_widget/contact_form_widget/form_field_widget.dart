@@ -13,6 +13,7 @@ class FormFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: formField.controller,
       maxLines: formField.maxLines,
       decoration: InputDecoration(
@@ -21,6 +22,20 @@ class FormFieldWidget extends StatelessWidget {
         alignLabelWithHint: true,
         hintText: formField.placeholder,
       ),
+      validator: (value) {
+        final String? trimmedValue = value?.trim();
+
+        if (trimmedValue == null ||
+            (formField.required && trimmedValue.isEmpty)) {
+          return 'Insira algum valor';
+        } else if (trimmedValue.isNotEmpty &&
+            formField.minLength != null &&
+            trimmedValue.length < formField.minLength!) {
+          return 'A quantidade mínima de caracteres é ${formField.minLength}';
+        }
+
+        return null;
+      },
     );
   }
 }

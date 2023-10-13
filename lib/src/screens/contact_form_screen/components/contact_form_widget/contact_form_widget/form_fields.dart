@@ -8,11 +8,14 @@ List<FormFieldModel> formFields(List<TextEditingController> controllers) {
       title: 'Nome',
       placeholder: 'Dário Matias',
       controller: controllers[0],
+      minLength: 3,
     ),
     FormFieldModel(
       title: 'Apelido',
       placeholder: '',
       controller: controllers[1],
+      required: false,
+      minLength: 3,
     ),
     FormFieldModel(
       title: 'Número',
@@ -23,17 +26,22 @@ List<FormFieldModel> formFields(List<TextEditingController> controllers) {
       title: 'Email',
       placeholder: 'matiasdario75@gmail.com',
       controller: controllers[3],
+      required: false,
     ),
     FormFieldModel(
       title: 'Endereço',
       placeholder: '',
       controller: controllers[4],
+      minLength: 3,
+      required: false,
     ),
     FormFieldModel(
       title: 'Nota',
       placeholder: 'Ocupado durante a manhã',
       controller: controllers[5],
+      minLength: 3,
       maxLines: 6,
+      required: false,
     ),
   ];
 }
