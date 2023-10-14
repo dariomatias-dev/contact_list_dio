@@ -1,8 +1,11 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/show_modal_bottom_sheet.dart';
 
@@ -56,9 +59,22 @@ class _ChooseAvatarIconWidgetState extends State<ChooseAvatarIconWidget> {
       );
 
       if (croppedFile != null) {
-        widget.updateProfilePicturePath(croppedFile.path);
+        String imagePath = croppedFile.path;
+        if (source == ImageSource.camera) {
+          final Uint8List bytes = await croppedFile.readAsBytes();
+
+          final Directory directory = await getApplicationDocumentsDirectory();
+          final Directory imageDirectory = Directory('${directory.path}/imagens');
+          imageDirectory.createSync();
+          final String photoName = basename(croppedFile.path);
+          imagePath = '${imageDirectory.path}/$photoName';
+          final File imageFile = File(imagePath);
+          await imageFile.writeAsBytes(bytes);
+        }
+
+        widget.updateProfilePicturePath(imagePath);
         setState(() {
-          profilePicturePath = croppedFile.path;
+          profilePicturePath = imagePath;
         });
       }
     }

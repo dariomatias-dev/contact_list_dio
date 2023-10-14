@@ -45,6 +45,7 @@ class _HomeScreenBodyContentWidgetState
                 ),
                 child: Divider(),
               ),
+              const SizedBox(height: 10.0),
               ListView.separated(
                 itemCount: contacts.length,
                 shrinkWrap: true,

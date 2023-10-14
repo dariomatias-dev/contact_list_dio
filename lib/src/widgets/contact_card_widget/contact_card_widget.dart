@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -90,11 +92,20 @@ class ContactCardWidget extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(18.0),
-                child: Image.network(
-                  'https://i.pinimg.com/564x/ed/c8/2c/edc82cb163f9adb1a0dcc37f1d48f0d9.jpg',
+                child: Container(
                   width: 60.0,
                   height: 60.0,
-                  fit: BoxFit.cover,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                  ),
+                  child: contact.profilePicturePath != null
+                      ? Image.file(
+                          File(contact.profilePicturePath!),
+                          fit: BoxFit.cover,
+                        )
+                      : const Center(
+                          child: Icon(Icons.person),
+                        ),
                 ),
               ),
               const SizedBox(width: 14.0),

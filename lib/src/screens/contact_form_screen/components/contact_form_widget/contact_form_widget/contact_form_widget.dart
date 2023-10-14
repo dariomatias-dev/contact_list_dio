@@ -1,4 +1,3 @@
-import 'package:contact_list/src/services/contacts_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/models/contact_model.dart';
@@ -7,6 +6,8 @@ import 'package:contact_list/src/models/form_field_model.dart';
 import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/choose_avatar_icon_widget.dart';
 import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/contact_form_widget/form_field_widget.dart';
 import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/contact_form_widget/form_fields.dart';
+
+import 'package:contact_list/src/services/contacts_service.dart';
 
 class ContactFormWidget extends StatefulWidget {
   const ContactFormWidget({
@@ -115,6 +116,7 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                     final String grades = _gradesFieldController.text;
 
                     final ContactModel contact = ContactModel(
+                      profilePicturePath: profilePicturePath,
                       name: name,
                       nickname: nickname,
                       number: number,
