@@ -1,5 +1,6 @@
 class ContactModel {
   ContactModel({
+    this.objectId,
     this.profilePicturePath,
     required this.name,
     this.nickname,
@@ -11,32 +12,35 @@ class ContactModel {
     this.updatedAt,
   });
 
+  final String? objectId;
   final String? profilePicturePath;
   final String name;
   final String? nickname;
   final String number;
   final String? email;
   final String? address;
-  final String grades;
+  final String? grades;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  factory ContactModel.toMap(Map<String, dynamic> map) {
+  factory ContactModel.fromMap(Map<String, dynamic> map) {
     return ContactModel(
-      profilePicturePath: map['profilePicturePath'],
+      objectId: map['objectId'],
+      profilePicturePath: map['profile_picture_path'],
       name: map['name'],
       nickname: map['nickname'],
       number: map['number'],
       email: map['email'],
       address: map['address'],
       grades: map['grades'],
-      createdAt: map['createdAt'],
-      updatedAt: map['updatedAt'],
+      createdAt: DateTime.parse(map['createdAt']),
+      updatedAt: DateTime.parse(map['updatedAt']),
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'objectId': objectId,
       'profilePicturePath': profilePicturePath,
       'name': name,
       'nickname': nickname,
@@ -44,8 +48,8 @@ class ContactModel {
       'email': email,
       'address': address,
       'grades': grades,
-      'createdAt': createdAt,
-      'updatedAt': updatedAt,
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
     };
   }
 }
