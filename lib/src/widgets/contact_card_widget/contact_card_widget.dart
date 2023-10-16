@@ -11,6 +11,8 @@ import 'package:contact_list/src/models/contact_model.dart';
 import 'package:contact_list/src/screens/contact_form_screen/contact_form_screen.dart';
 import 'package:contact_list/src/screens/contact_screen/contact_screen.dart';
 
+import 'package:contact_list/src/services/contacts_service.dart';
+
 import 'package:contact_list/src/widgets/contact_card_widget/slidable_action_widget.dart';
 
 class ContactCardWidget extends StatelessWidget {
@@ -24,6 +26,8 @@ class ContactCardWidget extends StatelessWidget {
   final BuildContext screenContext;
 
   void _showAlertDialog() {
+    final ContactsService contactsService = ContactsService();
+
     showDialog(
       context: screenContext,
       builder: (alertDialogContext) {
@@ -42,6 +46,8 @@ class ContactCardWidget extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
+                contactsService.removeContact(contact.objectId!);
+
                 Navigator.pop(alertDialogContext);
               },
               child: const Text('Excluir'),

@@ -62,7 +62,7 @@ class _HomeScreenBodyContentWidgetState
             children: [
               const SizedBox(height: 10.0),
               ListView.separated(
-                itemCount: 20,
+                itemCount: contacts.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 separatorBuilder: (context, index) {
@@ -71,7 +71,7 @@ class _HomeScreenBodyContentWidgetState
                   );
                 },
                 itemBuilder: (context, index) {
-                  final ContactModel contact = contacts.elementAt(0)!;
+                  final ContactModel contact = contacts.elementAt(index)!;
 
                   return ContactCardWidget(
                     screenContext: context,

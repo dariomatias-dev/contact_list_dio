@@ -11,7 +11,24 @@ class ContactsService {
   final logger = Logger();
   final Dio dio = dioConfigured();
 
-  void createContact(ContactModel contact) {}
+  Future<void> createContact(ContactModel contact) async {
+    final Map<String, dynamic> map = removeNullValues(
+      contact.toMap(),
+    );
+
+    try {
+      await dio.post(
+        '',
+        data: map,
+      );
+      contactsServiceNotifier.notify();
+    } catch (err, stackTrace) {
+      logger.e(
+        'Error: $err',
+        stackTrace: stackTrace,
+      );
+    }
+  }
 
   Future<ContactModel?> getContact(String objectId) async {
     try {
@@ -71,7 +88,17 @@ class ContactsService {
     }
   }
 
-  void removeContact(String number) {}
+  Future<void> removeContact(String objectId) async {
+    try {
+      await dio.delete(objectId);
+      contactsServiceNotifier.notify();
+    } catch (err, stackTrace) {
+      logger.e(
+        'Error: $err',
+        stackTrace: stackTrace,
+      );
+    }
+  }
 }
 
 Map<String, dynamic> removeNullValues(
