@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:contact_list/src/core/helpers/verifications_helper.dart';
+
 import 'package:contact_list/src/notifiers/contacts_service_notifier.dart';
 
 import 'package:contact_list/src/models/contact_model.dart';
@@ -46,20 +48,10 @@ class _HomeScreenBodyContentWidgetState
           FutureBuilder(
             future: contactsService.getContacts(),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const SizedBox(
-                  height: 140.0,
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              } else if (snapshot.hasError || snapshot.data == null) {
-                return const SizedBox(
-                  height: 140.0,
-                  child: Text(
-                    'Ocorreu um problema ao carregar os dados',
-                  ),
-                );
+              final verificationsResult = verificationsHelper(snapshot);
+
+              if (verificationsResult != null) {
+                return verificationsResult;
               }
 
               final contacts = snapshot.data!;

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:contact_list/src/screens/contact_form_screen/contact_form_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -61,7 +62,15 @@ class ContactCardWidget extends StatelessWidget {
           SlidableActionWidget(
             title: 'Editar',
             icon: Icons.edit,
-            action: () {},
+            action: () {
+              navigationFadeTransitionHelp(
+                screenContext,
+                ContactListRouteNames.contactForm,
+                () => ContactFormScreen(
+                  objectId: contact.objectId,
+                ),
+              );
+            },
             backgroundColor: Colors.blue.shade400,
           ),
           SlidableActionWidget(

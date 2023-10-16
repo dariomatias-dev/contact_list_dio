@@ -9,6 +9,19 @@ class ContactsService {
 
   void createContact(ContactModel contact) {}
 
+  Future<ContactModel?> getContact(String objectId) async {
+    try {
+      final String queries = '?where={"objectId":"$objectId"}';
+      final Response response = await dio.get(queries);
+      final Map<String, dynamic> data = response.data;
+      final List<dynamic> results = data['results'];
+
+      return results.isNotEmpty ? ContactModel.fromMap(results[0]) : null;
+    } catch (err) {
+      return null;
+    }
+  }
+
   Future<List<ContactModel>> getContacts() async {
     final Response response = await dio.get('');
     final Map<String, dynamic> data = response.data;
@@ -23,4 +36,3 @@ class ContactsService {
 
   void removeContact(String number) {}
 }
-
