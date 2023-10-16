@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:contact_list/src/screens/contact_form_screen/contact_form_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -9,6 +8,7 @@ import 'package:contact_list/src/core/routes/contact_list_route_names.dart';
 
 import 'package:contact_list/src/models/contact_model.dart';
 
+import 'package:contact_list/src/screens/contact_form_screen/contact_form_screen.dart';
 import 'package:contact_list/src/screens/contact_screen/contact_screen.dart';
 
 import 'package:contact_list/src/widgets/contact_card_widget/slidable_action_widget.dart';

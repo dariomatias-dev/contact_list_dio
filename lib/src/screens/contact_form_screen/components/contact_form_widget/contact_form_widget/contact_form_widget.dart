@@ -86,8 +86,10 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final String? objectId = widget.objectId;
+
     return FutureBuilder(
-      future: widget.objectId != null ? _fetchData() : null,
+      future: objectId != null ? _fetchData() : null,
       builder: (context, snapshot) {
         final verificationsResult = verificationsHelper(snapshot);
 
@@ -159,7 +161,14 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                             grades: grades,
                           );
 
-                          _contactsService.createContact(contact);
+                          if (objectId == null) {
+                            _contactsService.createContact(contact);
+                          } else {
+                            _contactsService.updateContact(
+                              objectId,
+                              contact,
+                            );
+                          }
 
                           Navigator.pop(widget.screenContext);
                         }

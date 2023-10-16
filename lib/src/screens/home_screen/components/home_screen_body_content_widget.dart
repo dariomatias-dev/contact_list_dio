@@ -71,8 +71,8 @@ class _HomeScreenBodyContentWidgetState
                   );
                 },
                 itemBuilder: (context, index) {
-                  final ContactModel contact = contacts.elementAt(0);
-        
+                  final ContactModel contact = contacts.elementAt(0)!;
+
                   return ContactCardWidget(
                     screenContext: context,
                     contact: contact,
