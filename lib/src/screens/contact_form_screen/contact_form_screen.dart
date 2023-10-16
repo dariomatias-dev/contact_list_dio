@@ -19,11 +19,9 @@ class ContactFormScreen extends StatelessWidget {
       appBar: const CustomAppBarWidget(
         title: 'Adicionar contato',
       ),
-      body: SingleChildScrollView(
-        child: ContactFormWidget(
-          screenContext: context,
-          objectId: objectId,
-        ),
+      body: ContactFormWidget(
+        screenContext: context,
+        objectId: objectId,
       ),
     );
   }

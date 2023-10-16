@@ -9,6 +9,8 @@ import 'package:contact_list/src/screens/home_screen/components/home_screen_body
 
 import 'package:contact_list/src/screens/search_screen/search_screen.dart';
 
+import 'package:contact_list/src/widgets/custom_app_bar_bottom_widget.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -17,6 +19,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        toolbarHeight: 56.0,
         title: const Text(
           'Contatos',
           style: TextStyle(
@@ -42,6 +45,7 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(width: 10.0),
         ],
+        bottom: const CustomAppBarBottomWidget(),
       ),
       body: const HomeScreenBodyContentWidget(),
       floatingActionButton: FloatingActionButton(

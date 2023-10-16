@@ -37,11 +37,13 @@ class ContactScreenBodyContent extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const CircleAvatar(
+                const SizedBox(height: 10.0),
+                CircleAvatar(
                   radius: 80.0,
-                  backgroundImage: NetworkImage(
+                  backgroundImage: const NetworkImage(
                     'https://i.pinimg.com/564x/ed/c8/2c/edc82cb163f9adb1a0dcc37f1d48f0d9.jpg',
                   ),
+                  backgroundColor: Colors.grey.shade100,
                 ),
                 const SizedBox(height: 12.0),
                 Text(
@@ -196,6 +198,7 @@ class ContactScreenBodyContent extends StatelessWidget {
                   textAlign: TextAlign.justify,
                   maxLines: 6,
                   decoration: const InputDecoration(
+                    hintText: 'Adicione uma nota',
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 0.2,

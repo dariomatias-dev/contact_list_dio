@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:contact_list/src/widgets/custom_app_bar_bottom_widget.dart';
+
 class CustomAppBarWidget extends StatelessWidget
     implements PreferredSizeWidget {
   const CustomAppBarWidget({
@@ -18,7 +20,7 @@ class CustomAppBarWidget extends StatelessWidget
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      toolbarHeight: 60.0,
+      toolbarHeight: 56.0,
       backgroundColor: Colors.white,
       leading: Tooltip(
         message: 'Sair',
@@ -43,6 +45,7 @@ class CustomAppBarWidget extends StatelessWidget
             )
           : null,
       actions: actions,
+      bottom: const CustomAppBarBottomWidget(),
     );
   }
 }

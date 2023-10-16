@@ -35,38 +35,34 @@ class _HomeScreenBodyContentWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.0,
+    return FutureBuilder(
+      future: contactsService.getContacts(),
+      builder: (context, snapshot) {
+        final verificationsResult = verificationsHelper(snapshot);
+
+        if (verificationsResult != null) {
+          return Center(
+            child: verificationsResult,
+          );
+        }
+
+        final contacts = snapshot.data!;
+
+        if (contacts.isEmpty) {
+          return const SizedBox(
+            height: 140.0,
+            child: Text(
+              'Ainda não há nenhum contato',
             ),
-            child: Divider(),
-          ),
-          const SizedBox(height: 10.0),
-          FutureBuilder(
-            future: contactsService.getContacts(),
-            builder: (context, snapshot) {
-              final verificationsResult = verificationsHelper(snapshot);
+          );
+        }
 
-              if (verificationsResult != null) {
-                return verificationsResult;
-              }
-
-              final contacts = snapshot.data!;
-
-              if (contacts.isEmpty) {
-                return const SizedBox(
-                  height: 140.0,
-                  child: Text(
-                    'Ainda não há nenhum contato',
-                  ),
-                );
-              }
-
-              return ListView.separated(
-                itemCount: contacts.length,
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 10.0),
+              ListView.separated(
+                itemCount: 20,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 separatorBuilder: (context, index) {
@@ -75,18 +71,19 @@ class _HomeScreenBodyContentWidgetState
                   );
                 },
                 itemBuilder: (context, index) {
-                  final ContactModel contact = contacts.elementAt(index);
-
+                  final ContactModel contact = contacts.elementAt(0);
+        
                   return ContactCardWidget(
                     screenContext: context,
                     contact: contact,
                   );
                 },
-              );
-            },
+              ),
+              const SizedBox(height: 20.0),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
