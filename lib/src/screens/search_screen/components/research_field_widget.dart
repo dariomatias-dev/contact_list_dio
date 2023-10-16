@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class ResearchFieldWidget extends StatefulWidget {
   const ResearchFieldWidget({
     super.key,
-    required this.updateQuery,
+    required this.search,
   });
 
-  final void Function(String value) updateQuery;
+  final void Function(String value) search;
 
   @override
   State<ResearchFieldWidget> createState() => _ResearchFieldWidgetState();
@@ -49,6 +49,8 @@ class _ResearchFieldWidgetState extends State<ResearchFieldWidget> {
                   onTap: () {
                     _researchFieldController.text = '';
                     _researchFieldFocusNode.unfocus();
+
+                    widget.search('');
                   },
                   child: Icon(
                     Icons.clear_rounded,
@@ -58,9 +60,10 @@ class _ResearchFieldWidgetState extends State<ResearchFieldWidget> {
                 border: InputBorder.none,
               ),
               onEditingComplete: () {
-                final String value = _researchFieldController.text;
+                _researchFieldFocusNode.unfocus();
+                final String value = _researchFieldController.text.trim();
 
-                widget.updateQuery(value);
+                widget.search(value);
               },
               onTapOutside: (_) {
                 FocusManager.instance.primaryFocus?.unfocus();

@@ -48,7 +48,29 @@ class ContactsService {
     }
   }
 
-  Future<List<ContactModel?>> getContacts() async {
+  Future<List<ContactModel>?> getContactsByNumber(String number) async {
+    try {
+      final String queries = '?where={"number": {"\$regex": "\\\\$number"}}';
+      final Response response = await dio.get(queries);
+      final Map<String, dynamic> data = response.data;
+      final List<dynamic> results = data['results'];
+
+      final List<ContactModel> contacts = results.map((result) {
+        return ContactModel.fromMap(result);
+      }).toList();
+
+      return contacts;
+    } catch (err, stackTrace) {
+      logger.e(
+        'Error: $err',
+        stackTrace: stackTrace,
+      );
+
+      return null;
+    }
+  }
+
+  Future<List<ContactModel>?> getContacts() async {
     try {
       final Response response = await dio.get('');
       final Map<String, dynamic> data = response.data;
@@ -65,7 +87,7 @@ class ContactsService {
         stackTrace: stackTrace,
       );
 
-      return [];
+      return null;
     }
   }
 

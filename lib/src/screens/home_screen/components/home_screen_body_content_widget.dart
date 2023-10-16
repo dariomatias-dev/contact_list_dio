@@ -10,8 +10,9 @@ import 'package:contact_list/src/services/contacts_service.dart';
 
 enum Status {
   loading,
-  hasData,
+  hasError,
   empty,
+  hasData,
 }
 
 class HomeScreenBodyContentWidget extends StatefulWidget {
@@ -43,16 +44,20 @@ class _HomeScreenBodyContentWidgetState
       status = Status.loading;
     });
 
-    final List<ContactModel?> result = await contactsService.getContacts();
+    final List<ContactModel>? result = await contactsService.getContacts();
 
-    if (result.isEmpty) {
+    if (result == null) {
+      setState(() {
+        status = Status.hasError;
+      });
+    } else if (result.isEmpty) {
       setState(() {
         status = Status.empty;
       });
     } else {
       setState(() {
         status = Status.hasData;
-        _contacts = result as List<ContactModel>;
+        _contacts = result;
       });
     }
 
@@ -75,6 +80,16 @@ class _HomeScreenBodyContentWidgetState
     if (status == Status.loading && !_isRefresh) {
       return const Center(
         child: CircularProgressIndicator(),
+      );
+    } else if (status == Status.hasError) {
+      return const Center(
+        child: Text(
+          'Ocorreu um problema ao carregar os dados',
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       );
     } else if (status == Status.empty) {
       return const Center(
