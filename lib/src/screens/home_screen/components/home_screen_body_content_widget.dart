@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
-import 'package:contact_list/src/core/helpers/verifications_helper.dart';
-
 import 'package:contact_list/src/notifiers/contacts_service_notifier.dart';
 
 import 'package:contact_list/src/models/contact_model.dart';
 
+import 'package:contact_list/src/screens/home_screen/components/contact_list_widget.dart';
+
 import 'package:contact_list/src/services/contacts_service.dart';
 
-import 'package:contact_list/src/widgets/contact_card_widget/contact_card_widget.dart';
+enum Status {
+  loading,
+  hasData,
+  empty,
+}
 
 class HomeScreenBodyContentWidget extends StatefulWidget {
   const HomeScreenBodyContentWidget({
@@ -23,6 +27,37 @@ class HomeScreenBodyContentWidget extends StatefulWidget {
 class _HomeScreenBodyContentWidgetState
     extends State<HomeScreenBodyContentWidget> {
   final ContactsService contactsService = ContactsService();
+  List<ContactModel> _contacts = [];
+  Status? status;
+
+  bool _isRefresh = false;
+
+  Future<void> _onRefresh() async {
+    _isRefresh = true;
+
+    await _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    setState(() {
+      status = Status.loading;
+    });
+
+    final List<ContactModel?> result = await contactsService.getContacts();
+
+    if (result.isEmpty) {
+      setState(() {
+        status = Status.empty;
+      });
+    } else {
+      setState(() {
+        status = Status.hasData;
+        _contacts = result as List<ContactModel>;
+      });
+    }
+
+    _isRefresh = false;
+  }
 
   @override
   void initState() {
@@ -30,60 +65,32 @@ class _HomeScreenBodyContentWidgetState
       setState(() {});
     });
 
+    _fetchData();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: contactsService.getContacts(),
-      builder: (context, snapshot) {
-        final verificationsResult = verificationsHelper(snapshot);
-
-        if (verificationsResult != null) {
-          return Center(
-            child: verificationsResult,
-          );
-        }
-
-        final contacts = snapshot.data!;
-
-        if (contacts.isEmpty) {
-          return const SizedBox(
-            height: 140.0,
-            child: Text(
-              'Ainda não há nenhum contato',
-            ),
-          );
-        }
-
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 10.0),
-              ListView.separated(
-                itemCount: contacts.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    height: 10.0,
-                  );
-                },
-                itemBuilder: (context, index) {
-                  final ContactModel contact = contacts.elementAt(index)!;
-
-                  return ContactCardWidget(
-                    screenContext: context,
-                    contact: contact,
-                  );
-                },
-              ),
-              const SizedBox(height: 20.0),
-            ],
+    if (status == Status.loading && !_isRefresh) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    } else if (status == Status.empty) {
+      return const Center(
+        child: Text(
+          'Ainda não há nenhum contato',
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w600,
           ),
-        );
-      },
+        ),
+      );
+    }
+
+    return ContactListWidget(
+      contacts: _contacts,
+      onRefresh: _onRefresh,
     );
   }
 }
