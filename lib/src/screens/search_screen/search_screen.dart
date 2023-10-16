@@ -4,16 +4,31 @@ import 'package:contact_list/src/screens/search_screen/components/research_field
 
 import 'package:contact_list/src/widgets/custom_app_bar_widget.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  String query = '';
+
+  void updateQuery(String value) {
+    setState(() {
+      query = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const CustomAppBarWidget(
+      appBar: CustomAppBarWidget(
         actions: <Widget>[
-          ResearchFieldWidget(),
+          ResearchFieldWidget(
+            updateQuery: updateQuery,
+          ),
         ],
       ),
       body: Container(),

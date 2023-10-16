@@ -110,13 +110,7 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20.0,
-                    ),
-                    child: Divider(),
-                  ),
-                  const SizedBox(height: 20.0),
+                  const SizedBox(height: 10.0),
                   ChooseAvatarIconWidget(
                     screenContext: context,
                     updateProfilePicturePath: _updateProfilePicturePath,
