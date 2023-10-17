@@ -63,7 +63,7 @@ class _HomeScreenBodyContentWidgetState
   @override
   void initState() {
     contactsServiceNotifier.onContactsServiceCalled.listen((_) {
-      setState(() {});
+      _fetchData();
     });
 
     _fetchData();

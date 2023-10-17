@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/services/contacts_service.dart';
 
-void showDeleteConfirmationDialog(
+Future<bool> showDeleteConfirmationDialog(
   BuildContext screenContext,
   String objectId,
-) {
+) async {
   final ContactsService contactsService = ContactsService();
+  bool isConfirmed = false;
 
-  showDialog(
+  await showDialog(
     context: screenContext,
     builder: (alertDialogContext) {
       return AlertDialog(
@@ -29,6 +30,7 @@ void showDeleteConfirmationDialog(
               contactsService.removeContact(objectId);
 
               Navigator.pop(alertDialogContext);
+              isConfirmed = true;
             },
             child: const Text('Excluir'),
           ),
@@ -36,4 +38,6 @@ void showDeleteConfirmationDialog(
       );
     },
   );
+
+  return isConfirmed;
 }

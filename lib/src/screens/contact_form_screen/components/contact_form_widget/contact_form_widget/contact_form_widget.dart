@@ -179,7 +179,9 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                       ),
-                      child: const Text('Adicionar'),
+                      child: Text(formType == FormTypeEnum.create
+                          ? 'Adicionar'
+                          : 'Atualizar'),
                     ),
                   ),
                   const SizedBox(height: 16.0),

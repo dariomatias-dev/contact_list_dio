@@ -41,7 +41,7 @@ class ContactModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'objectId': objectId,
-      'profilePicturePath': profilePicturePath,
+      'profile_picture_path': profilePicturePath,
       'name': name,
       'nickname': nickname,
       'number': number,
