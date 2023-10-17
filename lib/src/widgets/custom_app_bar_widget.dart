@@ -6,11 +6,15 @@ class CustomAppBarWidget extends StatelessWidget
     implements PreferredSizeWidget {
   const CustomAppBarWidget({
     super.key,
+    this.showExitButton = true,
     this.title,
+    this.centerTitle = false,
     this.actions,
   });
 
+  final bool showExitButton;
   final String? title;
+  final bool centerTitle;
   final List<Widget>? actions;
 
   @override
@@ -22,20 +26,22 @@ class CustomAppBarWidget extends StatelessWidget
       elevation: 0,
       toolbarHeight: 56.0,
       backgroundColor: Colors.white,
-      leading: Tooltip(
-        message: 'Sair',
-        child: IconButton(
-          highlightColor: Colors.transparent,
-          splashColor: Colors.transparent,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-          ),
-        ),
-      ),
+      leading: showExitButton
+          ? Tooltip(
+              message: 'Sair',
+              child: IconButton(
+                highlightColor: Colors.transparent,
+                splashColor: Colors.transparent,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+              ),
+            )
+          : null,
       title: title != null
           ? Text(
               title!,
@@ -44,6 +50,7 @@ class CustomAppBarWidget extends StatelessWidget
               ),
             )
           : null,
+      centerTitle: centerTitle,
       actions: actions,
       bottom: const CustomAppBarBottomWidget(),
     );

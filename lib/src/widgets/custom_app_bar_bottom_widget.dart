@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomAppBarBottomWidget extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBarBottomWidget extends StatelessWidget
+    implements PreferredSizeWidget {
   const CustomAppBarBottomWidget({super.key});
 
-    @override
+  @override
   Size get preferredSize => const Size.fromHeight(1.0);
 
   @override

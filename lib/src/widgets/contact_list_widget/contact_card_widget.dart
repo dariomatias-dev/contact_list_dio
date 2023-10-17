@@ -10,6 +10,7 @@ import 'package:contact_list/src/enums/enums.dart';
 import 'package:contact_list/src/models/basic_contact_model.dart';
 
 import 'package:contact_list/src/screens/contact_form_screen/contact_form_screen.dart';
+import 'package:contact_list/src/screens/contact_screen/contact_screen.dart';
 
 import 'package:contact_list/src/utils/show_delete_confirmation_dialog.dart';
 
@@ -27,13 +28,13 @@ class ContactCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // navigationFadeTransitionHelp(
-        //   screenContext,
-        //   ContactListRouteNames.contact,
-        //   () => ContactScreen(
-        //     contact: contact,
-        //   ),
-        // );
+        navigationFadeTransitionHelp(
+          screenContext,
+          ContactListRouteNames.contact,
+          () => ContactScreen(
+            objectId: contact.objectId!,
+          ),
+        );
       },
       child: Container(
         width: double.infinity,

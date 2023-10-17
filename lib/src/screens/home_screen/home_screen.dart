@@ -6,12 +6,10 @@ import 'package:contact_list/src/core/routes/contact_list_route_names.dart';
 import 'package:contact_list/src/enums/enums.dart';
 
 import 'package:contact_list/src/screens/contact_form_screen/contact_form_screen.dart';
-
 import 'package:contact_list/src/screens/home_screen/components/home_screen_body_content_widget.dart';
-
 import 'package:contact_list/src/screens/search_screen/search_screen.dart';
 
-import 'package:contact_list/src/widgets/custom_app_bar_bottom_widget.dart';
+import 'package:contact_list/src/widgets/custom_app_bar_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -20,17 +18,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        toolbarHeight: 56.0,
-        title: const Text(
-          'Contatos',
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
+      appBar: CustomAppBarWidget(
+        showExitButton: false,
+        title: 'Contatos',
         centerTitle: true,
-        backgroundColor: Colors.white,
-        elevation: 0,
         actions: [
           IconButton(
             onPressed: () {
@@ -47,7 +38,6 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(width: 10.0),
         ],
-        bottom: const CustomAppBarBottomWidget(),
       ),
       body: const HomeScreenBodyContentWidget(),
       floatingActionButton: FloatingActionButton(
