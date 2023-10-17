@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/models/contact_model.dart';
 
-import 'package:contact_list/src/widgets/contact_card_widget/contact_card_widget.dart';
+import 'package:contact_list/src/widgets/contact_card_widget.dart';
 
 class ContactListWidget extends StatelessWidget {
   const ContactListWidget({

@@ -1,0 +1,4 @@
+enum FormTypeEnum {
+  create,
+  update,
+}

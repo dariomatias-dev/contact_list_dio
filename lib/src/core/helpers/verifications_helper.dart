@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
-Widget? verificationsHelper(AsyncSnapshot<dynamic> snapshot) {
+Widget? verificationsHelper(
+  AsyncSnapshot<dynamic> snapshot, {
+  bool checkValueNull = true,
+}) {
   if (snapshot.connectionState == ConnectionState.waiting) {
     return const CircularProgressIndicator();
-  } else if (snapshot.hasError || snapshot.data == null) {
+  } else if (snapshot.hasError || (checkValueNull && snapshot.data == null)) {
     return const Text(
       'Ocorreu um problema ao carregar os dados',
       style: TextStyle(

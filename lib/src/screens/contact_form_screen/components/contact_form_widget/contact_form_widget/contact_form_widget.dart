@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/core/helpers/verifications_helper.dart';
 
+import 'package:contact_list/src/enums/enums.dart';
+
 import 'package:contact_list/src/models/contact_model.dart';
 import 'package:contact_list/src/models/form_field_model.dart';
 
@@ -15,10 +17,12 @@ class ContactFormWidget extends StatefulWidget {
   const ContactFormWidget({
     super.key,
     required this.screenContext,
+    required this.typeForm,
     this.objectId,
   });
 
   final BuildContext screenContext;
+  final FormTypeEnum typeForm;
   final String? objectId;
 
   @override
@@ -86,12 +90,15 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final String? objectId = widget.objectId;
+    final FormTypeEnum typeForm = widget.typeForm;
 
     return FutureBuilder(
-      future: objectId != null ? _fetchData() : null,
+      future: typeForm == FormTypeEnum.create ? null : _fetchData(),
       builder: (context, snapshot) {
-        final verificationsResult = verificationsHelper(snapshot);
+        final verificationsResult = verificationsHelper(
+          snapshot,
+          checkValueNull: false,
+        );
 
         if (verificationsResult != null) {
           return Center(
@@ -155,11 +162,11 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                             grades: grades,
                           );
 
-                          if (objectId == null) {
+                          if (typeForm == FormTypeEnum.create) {
                             _contactsService.createContact(contact);
                           } else {
                             _contactsService.updateContact(
-                              objectId,
+                              widget.objectId!,
                               contact,
                             );
                           }
