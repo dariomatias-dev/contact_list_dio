@@ -1,14 +1,13 @@
+import 'package:contact_list/src/models/basic_contact_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/enums/enums.dart';
-
-import 'package:contact_list/src/models/contact_model.dart';
 
 import 'package:contact_list/src/notifiers/contacts_service_notifier.dart';
 
 import 'package:contact_list/src/services/contacts_service.dart';
 
-import 'package:contact_list/src/widgets/contact_list_widget.dart';
+import 'package:contact_list/src/widgets/contact_list_widget/contact_list_widget.dart';
 import 'package:contact_list/src/widgets/elegant_message_widget.dart';
 
 class HomeScreenBodyContentWidget extends StatefulWidget {
@@ -24,7 +23,7 @@ class HomeScreenBodyContentWidget extends StatefulWidget {
 class _HomeScreenBodyContentWidgetState
     extends State<HomeScreenBodyContentWidget> {
   final ContactsService contactsService = ContactsService();
-  List<ContactModel> _contacts = [];
+  List<BasicContactModel> _contacts = [];
   Status? status;
 
   bool _isRefresh = false;
@@ -40,7 +39,7 @@ class _HomeScreenBodyContentWidgetState
       status = Status.loading;
     });
 
-    final List<ContactModel>? result = await contactsService.getContacts();
+    final List<BasicContactModel>? result = await contactsService.getContacts();
 
     if (result == null) {
       setState(() {

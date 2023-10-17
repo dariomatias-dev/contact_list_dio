@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:contact_list/src/models/contact_model.dart';
+import 'package:contact_list/src/models/basic_contact_model.dart';
 
-import 'package:contact_list/src/widgets/contact_card_widget.dart';
+import 'package:contact_list/src/widgets/contact_list_widget/contact_card_widget.dart';
 
 class ContactListWidget extends StatelessWidget {
   const ContactListWidget({
@@ -10,7 +10,7 @@ class ContactListWidget extends StatelessWidget {
     required this.contacts,
   });
 
-  final List<ContactModel> contacts;
+  final List<BasicContactModel> contacts;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class ContactListWidget extends StatelessWidget {
             );
           },
           itemBuilder: (context, index) {
-            final ContactModel contact = contacts.elementAt(index);
+            final BasicContactModel contact = contacts.elementAt(index);
 
             return ContactCardWidget(
               screenContext: context,

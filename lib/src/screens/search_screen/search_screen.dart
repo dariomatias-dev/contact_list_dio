@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/core/helpers/verifications_helper.dart';
 
-import 'package:contact_list/src/models/contact_model.dart';
+import 'package:contact_list/src/models/basic_contact_model.dart';
 
 import 'package:contact_list/src/screens/search_screen/components/research_field_widget.dart';
 
 import 'package:contact_list/src/services/contacts_service.dart';
 
-import 'package:contact_list/src/widgets/contact_list_widget.dart';
+import 'package:contact_list/src/widgets/contact_list_widget/contact_list_widget.dart';
 import 'package:contact_list/src/widgets/custom_app_bar_widget.dart';
 import 'package:contact_list/src/widgets/elegant_message_widget.dart';
 
@@ -60,7 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   );
                 }
 
-                final List<ContactModel> contacts = snapshot.data!;
+                final List<BasicContactModel> contacts = snapshot.data!;
 
                 return ContactListWidget(
                   contacts: contacts,

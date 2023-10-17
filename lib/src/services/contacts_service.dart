@@ -3,6 +3,8 @@ import 'package:logger/logger.dart';
 
 import 'package:contact_list/src/core/rest_client/rest_client.dart';
 
+import 'package:contact_list/src/models/basic_contact_model.dart';
+
 import 'package:contact_list/src/notifiers/contacts_service_notifier.dart';
 
 import 'package:contact_list/src/models/contact_model.dart';
@@ -10,6 +12,8 @@ import 'package:contact_list/src/models/contact_model.dart';
 class ContactsService {
   final logger = Logger();
   final Dio dio = dioConfigured();
+
+  final String keys = 'keys=objectId,profile_picture_path,name,number';
 
   Future<void> createContact(ContactModel contact) async {
     final Map<String, dynamic> map = removeNullValues(
@@ -48,15 +52,16 @@ class ContactsService {
     }
   }
 
-  Future<List<ContactModel>?> getContactsByNumber(String number) async {
+  Future<List<BasicContactModel>?> getContactsByNumber(String number) async {
     try {
-      final String queries = '?where={"number": {"\$regex": "\\\\$number"}}';
+      final String where = 'where={"number": {"\$regex": "\\\\$number"}}';
+      final String queries = '?$where&$keys';
       final Response response = await dio.get(queries);
       final Map<String, dynamic> data = response.data;
       final List<dynamic> results = data['results'];
 
-      final List<ContactModel> contacts = results.map((result) {
-        return ContactModel.fromMap(result);
+      final List<BasicContactModel> contacts = results.map((result) {
+        return BasicContactModel.fromMap(result);
       }).toList();
 
       return contacts;
@@ -70,14 +75,15 @@ class ContactsService {
     }
   }
 
-  Future<List<ContactModel>?> getContacts() async {
+  Future<List<BasicContactModel>?> getContacts() async {
     try {
-      final Response response = await dio.get('');
+      final String queries = '?$keys';
+      final Response response = await dio.get(queries);
       final Map<String, dynamic> data = response.data;
       final List<dynamic> results = data['results'];
 
-      final List<ContactModel> contacts = results.map((result) {
-        return ContactModel.fromMap(result);
+      final List<BasicContactModel> contacts = results.map((result) {
+        return BasicContactModel.fromMap(result);
       }).toList();
 
       return contacts;
