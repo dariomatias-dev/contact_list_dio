@@ -1,8 +1,14 @@
+import 'package:contact_list/src/core/helpers/navigation_fade_transition_help.dart';
+import 'package:contact_list/src/core/routes/contact_list_route_names.dart';
+import 'package:contact_list/src/enums/enums.dart';
+import 'package:contact_list/src/screens/contact_form_screen/contact_form_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/models/contact_model.dart';
 
 import 'package:contact_list/src/screens/contact_screen/components/contact_screen_body_content.dart';
+
+import 'package:contact_list/src/utils/show_delete_confirmation_dialog.dart';
 
 import 'package:contact_list/src/widgets/custom_app_bar_widget.dart';
 
@@ -13,33 +19,6 @@ class ContactScreen extends StatelessWidget {
   });
 
   final ContactModel contact;
-
-  void updateContact(BuildContext screenContext) {
-    _showAlertDialog(screenContext, 'Atualizar contato');
-  }
-
-  void deleteContact(BuildContext screenContext) {
-    _showAlertDialog(screenContext, 'Excluir contato');
-  }
-
-  void _showAlertDialog(BuildContext screenContext, String title) {
-    showDialog(
-      context: screenContext,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(title),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Ok'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,18 +32,29 @@ class ContactScreen extends StatelessWidget {
               Icons.more_vert_rounded,
               color: Colors.black,
             ),
-            onSelected: (value) {
-              value(context);
-            },
             itemBuilder: (context) => <PopupMenuItem>[
               PopupMenuItem(
-                value: updateContact,
+                onTap: () {
+                  navigationFadeTransitionHelp(
+                    context,
+                    ContactListRouteNames.contactForm,
+                    () => ContactFormScreen(
+                      formType: FormTypeEnum.update,
+                      objectId: contact.objectId,
+                    ),
+                  );
+                },
                 child: const Text(
                   'Atualizar',
                 ),
               ),
               PopupMenuItem(
-                value: deleteContact,
+                onTap: () {
+                  showDeleteConfirmationDialog(
+                    context,
+                    contact.objectId!,
+                  );
+                },
                 child: const Text(
                   'Excluir',
                 ),

@@ -9,6 +9,8 @@ import 'package:path_provider/path_provider.dart';
 
 import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/show_modal_bottom_sheet.dart';
 
+import 'package:contact_list/src/widgets/profile_icon_widget.dart';
+
 class ChooseAvatarIconWidget extends StatefulWidget {
   const ChooseAvatarIconWidget({
     super.key,
@@ -64,7 +66,8 @@ class _ChooseAvatarIconWidgetState extends State<ChooseAvatarIconWidget> {
           final Uint8List bytes = await croppedFile.readAsBytes();
 
           final Directory directory = await getApplicationDocumentsDirectory();
-          final Directory imageDirectory = Directory('${directory.path}/imagens');
+          final Directory imageDirectory =
+              Directory('${directory.path}/imagens');
           imageDirectory.createSync();
           final String photoName = basename(croppedFile.path);
           imagePath = '${imageDirectory.path}/$photoName';
@@ -86,32 +89,8 @@ class _ChooseAvatarIconWidgetState extends State<ChooseAvatarIconWidget> {
       alignment: Alignment.center,
       child: Stack(
         children: [
-          Container(
-            padding: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              shape: BoxShape.circle,
-            ),
-            child: Stack(
-              children: [
-                CircleAvatar(
-                  radius: 70,
-                  backgroundColor: Colors.grey.shade100,
-                  backgroundImage: profilePicturePath != null
-                      ? FileImage(
-                          File(profilePicturePath!),
-                        )
-                      : null,
-                  child: profilePicturePath == null
-                      ? Icon(
-                          Icons.person,
-                          color: Colors.grey.shade500,
-                          size: 40.0,
-                        )
-                      : null,
-                ),
-              ],
-            ),
+          ProfileIconWidget(
+            profilePicturePath: profilePicturePath,
           ),
           Positioned(
             right: 9.0,

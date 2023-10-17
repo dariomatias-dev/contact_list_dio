@@ -56,7 +56,7 @@ class HomeScreen extends StatelessWidget {
             context,
             ContactListRouteNames.contactForm,
             () => const ContactFormScreen(
-              typeForm: FormTypeEnum.create,
+              formType: FormTypeEnum.create,
             ),
           );
         },

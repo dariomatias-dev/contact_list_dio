@@ -12,7 +12,7 @@ import 'package:contact_list/src/models/contact_model.dart';
 import 'package:contact_list/src/screens/contact_form_screen/contact_form_screen.dart';
 import 'package:contact_list/src/screens/contact_screen/contact_screen.dart';
 
-import 'package:contact_list/src/services/contacts_service.dart';
+import 'package:contact_list/src/utils/show_delete_confirmation_dialog.dart';
 
 class ContactCardWidget extends StatelessWidget {
   const ContactCardWidget({
@@ -23,39 +23,6 @@ class ContactCardWidget extends StatelessWidget {
 
   final ContactModel contact;
   final BuildContext screenContext;
-
-  void _showAlertDialog() {
-    final ContactsService contactsService = ContactsService();
-
-    showDialog(
-      context: screenContext,
-      builder: (alertDialogContext) {
-        return AlertDialog(
-          title: const Text('Aviso'),
-          content: const Text(
-            'Ao excluir o contato não será possível recuperá-lo, tenha certeza que realmente quer excluí-lo.',
-            textAlign: TextAlign.justify,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(alertDialogContext);
-              },
-              child: const Text('Voltar'),
-            ),
-            TextButton(
-              onPressed: () {
-                contactsService.removeContact(contact.objectId!);
-
-                Navigator.pop(alertDialogContext);
-              },
-              child: const Text('Excluir'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +94,7 @@ class ContactCardWidget extends StatelessWidget {
                           screenContext,
                           ContactListRouteNames.contactForm,
                           () => ContactFormScreen(
-                            typeForm: FormTypeEnum.update,
+                            formType: FormTypeEnum.update,
                             objectId: contact.objectId,
                           ),
                         );
@@ -135,7 +102,12 @@ class ContactCardWidget extends StatelessWidget {
                       child: const Text('Editar'),
                     ),
                     PopupMenuItem(
-                      onTap: _showAlertDialog,
+                      onTap: () {
+                        showDeleteConfirmationDialog(
+                          screenContext,
+                          contact.objectId!,
+                        );
+                      },
                       child: const Text('Remover'),
                     ),
                   ],

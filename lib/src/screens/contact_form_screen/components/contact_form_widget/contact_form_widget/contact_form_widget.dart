@@ -17,12 +17,12 @@ class ContactFormWidget extends StatefulWidget {
   const ContactFormWidget({
     super.key,
     required this.screenContext,
-    required this.typeForm,
+    required this.formType,
     this.objectId,
   });
 
   final BuildContext screenContext;
-  final FormTypeEnum typeForm;
+  final FormTypeEnum formType;
   final String? objectId;
 
   @override
@@ -90,10 +90,10 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final FormTypeEnum typeForm = widget.typeForm;
+    final FormTypeEnum formType = widget.formType;
 
     return FutureBuilder(
-      future: typeForm == FormTypeEnum.create ? null : _fetchData(),
+      future: formType == FormTypeEnum.create ? null : _fetchData(),
       builder: (context, snapshot) {
         final verificationsResult = verificationsHelper(
           snapshot,
@@ -162,7 +162,7 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                             grades: grades,
                           );
 
-                          if (typeForm == FormTypeEnum.create) {
+                          if (formType == FormTypeEnum.create) {
                             _contactsService.createContact(contact);
                           } else {
                             _contactsService.updateContact(

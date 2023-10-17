@@ -9,11 +9,14 @@ import 'package:contact_list/src/widgets/custom_app_bar_widget.dart';
 class ContactFormScreen extends StatelessWidget {
   const ContactFormScreen({
     super.key,
-    required this.typeForm,
+    required this.formType,
     this.objectId,
-  });
+  }) : assert(
+          !(formType == FormTypeEnum.update && objectId == null),
+          'When the form is of the update type, the objectId is mandatory.',
+        );
 
-  final FormTypeEnum typeForm;
+  final FormTypeEnum formType;
   final String? objectId;
 
   @override
@@ -21,13 +24,13 @@ class ContactFormScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBarWidget(
-        title: typeForm == FormTypeEnum.create
+        title: formType == FormTypeEnum.create
             ? 'Adicionar contato'
             : 'Atualizar contato',
       ),
       body: ContactFormWidget(
         screenContext: context,
-        typeForm: typeForm,
+        formType: formType,
         objectId: objectId,
       ),
     );

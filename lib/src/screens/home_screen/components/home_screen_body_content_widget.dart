@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:contact_list/src/notifiers/contacts_service_notifier.dart';
+import 'package:contact_list/src/enums/enums.dart';
 
 import 'package:contact_list/src/models/contact_model.dart';
 
-import 'package:contact_list/src/widgets/contact_list_widget.dart';
+import 'package:contact_list/src/notifiers/contacts_service_notifier.dart';
 
 import 'package:contact_list/src/services/contacts_service.dart';
 
-enum Status {
-  loading,
-  hasError,
-  empty,
-  hasData,
-}
+import 'package:contact_list/src/widgets/contact_list_widget.dart';
 
 class HomeScreenBodyContentWidget extends StatefulWidget {
   const HomeScreenBodyContentWidget({

@@ -3,6 +3,8 @@ import 'package:intl/intl.dart';
 
 import 'package:contact_list/src/models/contact_model.dart';
 
+import 'package:contact_list/src/widgets/profile_icon_widget.dart';
+
 class ContactScreenBodyContent extends StatelessWidget {
   const ContactScreenBodyContent({
     super.key,
@@ -30,20 +32,13 @@ class ContactScreenBodyContent extends StatelessWidget {
             ),
             decoration: const BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(28.0),
-              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 10.0),
-                CircleAvatar(
-                  radius: 80.0,
-                  backgroundImage: const NetworkImage(
-                    'https://i.pinimg.com/564x/ed/c8/2c/edc82cb163f9adb1a0dcc37f1d48f0d9.jpg',
-                  ),
-                  backgroundColor: Colors.grey.shade100,
+                ProfileIconWidget(
+                  profilePicturePath: contact.profilePicturePath,
                 ),
                 const SizedBox(height: 12.0),
                 Text(
@@ -84,7 +79,8 @@ class ContactScreenBodyContent extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (contact.nickname != null) ...[
+                if (contact.nickname != null &&
+                    contact.nickname!.isNotEmpty) ...[
                   Row(
                     children: [
                       const Text(
@@ -105,7 +101,7 @@ class ContactScreenBodyContent extends StatelessWidget {
                   ),
                   const SizedBox(height: 12.0),
                 ],
-                if (contact.email != null) ...[
+                if (contact.email != null && contact.email!.isNotEmpty) ...[
                   Row(
                     children: [
                       const Text(
@@ -126,7 +122,7 @@ class ContactScreenBodyContent extends StatelessWidget {
                   ),
                   const SizedBox(height: 12.0),
                 ],
-                if (contact.address != null) ...[
+                if (contact.address != null && contact.address!.isNotEmpty) ...[
                   Row(
                     children: [
                       const Text(
