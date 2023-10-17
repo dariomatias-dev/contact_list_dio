@@ -9,6 +9,7 @@ import 'package:contact_list/src/notifiers/contacts_service_notifier.dart';
 import 'package:contact_list/src/services/contacts_service.dart';
 
 import 'package:contact_list/src/widgets/contact_list_widget.dart';
+import 'package:contact_list/src/widgets/elegant_message_widget.dart';
 
 class HomeScreenBodyContentWidget extends StatefulWidget {
   const HomeScreenBodyContentWidget({
@@ -78,22 +79,14 @@ class _HomeScreenBodyContentWidgetState
       );
     } else if (status == Status.hasError) {
       return const Center(
-        child: Text(
-          'Ocorreu um problema ao carregar os dados',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.w600,
-          ),
+        child: ElegantMessageWidget(
+          message: 'Ocorreu um problema ao carregar os dados',
         ),
       );
     } else if (status == Status.empty) {
       return const Center(
-        child: Text(
-          'Ainda não há nenhum contato',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.w600,
-          ),
+        child: ElegantMessageWidget(
+          message: 'Ainda não há nenhum contato',
         ),
       );
     }

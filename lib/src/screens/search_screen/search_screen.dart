@@ -10,6 +10,7 @@ import 'package:contact_list/src/services/contacts_service.dart';
 
 import 'package:contact_list/src/widgets/contact_list_widget.dart';
 import 'package:contact_list/src/widgets/custom_app_bar_widget.dart';
+import 'package:contact_list/src/widgets/elegant_message_widget.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -67,14 +68,8 @@ class _SearchScreenState extends State<SearchScreen> {
               },
             )
           : const Center(
-              child: Text(
-                'Comece digitando um contato no campo acima',
-                textAlign: TextAlign.center,
-                softWrap: true,
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.w500,
-                ),
+              child: ElegantMessageWidget(
+                message: 'Comece digitando um contato no campo acima',
               ),
             ),
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:contact_list/src/widgets/elegant_message_widget.dart';
+
 Widget? verificationsHelper(
   AsyncSnapshot<dynamic> snapshot, {
   bool checkValueNull = true,
@@ -7,12 +9,8 @@ Widget? verificationsHelper(
   if (snapshot.connectionState == ConnectionState.waiting) {
     return const CircularProgressIndicator();
   } else if (snapshot.hasError || (checkValueNull && snapshot.data == null)) {
-    return const Text(
-      'Ocorreu um problema ao carregar os dados',
-      style: TextStyle(
-        fontSize: 16.0,
-        fontWeight: FontWeight.w600,
-      ),
+    return const ElegantMessageWidget(
+      message: 'Ocorreu um problema ao carregar os dados',
     );
   }
 
