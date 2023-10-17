@@ -1,37 +1,44 @@
 import 'package:flutter/material.dart';
 
-import 'package:contact_list/src/models/form_field_model.dart';
-
 class FormFieldWidget extends StatelessWidget {
   const FormFieldWidget({
     super.key,
-    required this.formField,
+    required this.title,
+    this.placeholder,
+    required this.controller,
+    this.minLength,
+    this.maxLines = 1,
+    this.required = true,
   });
 
-  final FormFieldModel formField;
+  final String title;
+  final String? placeholder;
+  final TextEditingController controller;
+  final int? minLength;
+  final int maxLines;
+  final bool required;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      controller: formField.controller,
-      maxLines: formField.maxLines,
+      controller: controller,
+      maxLines: maxLines,
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
-        labelText: formField.title,
+        labelText: title,
         alignLabelWithHint: true,
-        hintText: formField.placeholder,
+        hintText: placeholder,
       ),
       validator: (value) {
         final String? trimmedValue = value?.trim();
 
-        if (trimmedValue == null ||
-            (formField.required && trimmedValue.isEmpty)) {
+        if (trimmedValue == null || (required && trimmedValue.isEmpty)) {
           return 'Insira algum valor';
         } else if (trimmedValue.isNotEmpty &&
-            formField.minLength != null &&
-            trimmedValue.length < formField.minLength!) {
-          return 'A quantidade mínima de caracteres é ${formField.minLength}';
+            minLength != null &&
+            trimmedValue.length < minLength!) {
+          return 'A quantidade mínima de caracteres é $minLength';
         }
 
         return null;

@@ -5,11 +5,10 @@ import 'package:contact_list/src/core/helpers/verifications_helper.dart';
 import 'package:contact_list/src/enums/enums.dart';
 
 import 'package:contact_list/src/models/contact_model.dart';
-import 'package:contact_list/src/models/form_field_model.dart';
 
-import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/choose_avatar_icon_widget.dart';
 import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/contact_form_widget/form_field_widget.dart';
-import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/contact_form_widget/form_fields.dart';
+import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/contact_form_widget/phone_number_input_widget.dart';
+import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/choose_avatar_icon_widget.dart';
 
 import 'package:contact_list/src/services/contacts_service.dart';
 
@@ -32,13 +31,12 @@ class ContactFormWidget extends StatefulWidget {
 class _ContactFormWidgetState extends State<ContactFormWidget> {
   final ContactsService _contactsService = ContactsService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  List<FormFieldModel> _formFields = [];
 
   String? _profilePicturePath;
   final TextEditingController _nameFieldController = TextEditingController();
   final TextEditingController _nicknameFieldController =
       TextEditingController();
-  final TextEditingController _numberFieldController = TextEditingController();
+  String _number = '';
   final TextEditingController _emailFieldController = TextEditingController();
   final TextEditingController _addressFieldController = TextEditingController();
   final TextEditingController _gradesFieldController = TextEditingController();
@@ -47,11 +45,14 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
     _profilePicturePath = path;
   }
 
+  void _updateNumber(String number) {
+    _number = number;
+  }
+
   void _fillFields(ContactModel contact) {
     _profilePicturePath = contact.profilePicturePath;
     _nameFieldController.text = contact.name;
     _nicknameFieldController.text = contact.nickname ?? '';
-    _numberFieldController.text = contact.number;
     _emailFieldController.text = contact.email ?? '';
     _addressFieldController.text = contact.address ?? '';
     _gradesFieldController.text = contact.grades ?? '';
@@ -66,25 +67,12 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
   }
 
   @override
-  void initState() {
-    _formFields = formFields([
-      _nameFieldController,
-      _nicknameFieldController,
-      _numberFieldController,
-      _emailFieldController,
-      _addressFieldController,
-      _gradesFieldController,
-    ]);
-
-    super.initState();
-  }
-
-  @override
   void dispose() {
-    for (FormFieldModel fieldController in _formFields) {
-      fieldController.controller.dispose();
-    }
-
+    _nameFieldController.dispose();
+    _nicknameFieldController.dispose();
+    _emailFieldController.dispose();
+    _addressFieldController.dispose();
+    _gradesFieldController.dispose();
     super.dispose();
   }
 
@@ -123,21 +111,50 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                     updateProfilePicturePath: _updateProfilePicturePath,
                   ),
                   const SizedBox(height: 16.0),
-                  ListView.separated(
-                    itemCount: _formFields.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(height: 16.0);
-                    },
-                    itemBuilder: (context, index) {
-                      final FormFieldModel formField = _formFields[index];
 
-                      return FormFieldWidget(
-                        formField: formField,
-                      );
-                    },
+                  //
+
+                  FormFieldWidget(
+                    title: 'Nome',
+                    placeholder: 'Dário Matias',
+                    controller: _nameFieldController,
                   ),
+                  const SizedBox(height: 16.0),
+                  FormFieldWidget(
+                    title: 'Apelido',
+                    controller: _nicknameFieldController,
+                    required: false,
+                    minLength: 3,
+                  ),
+                  const SizedBox(height: 16.0),
+                  PhoneNumberInputWidget(
+                    updateNumber: _updateNumber,
+                  ),
+                  const SizedBox(height: 16.0),
+                  FormFieldWidget(
+                    title: 'Email',
+                    placeholder: 'matiasdario75@gmail.com',
+                    controller: _emailFieldController,
+                    required: false,
+                  ),
+                  const SizedBox(height: 16.0),
+                  FormFieldWidget(
+                    title: 'Endereço',
+                    controller: _addressFieldController,
+                    required: false,
+                    minLength: 3,
+                  ),
+                  const SizedBox(height: 16.0),
+                  FormFieldWidget(
+                    title: 'Nota',
+                    placeholder: 'Ocupado durante a manhã',
+                    controller: _gradesFieldController,
+                    minLength: 3,
+                    maxLines: 6,
+                    required: false,
+                  ),
+                  //
+
                   const SizedBox(height: 24.0),
                   SizedBox(
                     width: double.infinity,
@@ -147,7 +164,6 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                         if (_formKey.currentState!.validate()) {
                           final String name = _nameFieldController.text;
                           final String nickname = _nicknameFieldController.text;
-                          final String number = _numberFieldController.text;
                           final String email = _emailFieldController.text;
                           final String address = _addressFieldController.text;
                           final String grades = _gradesFieldController.text;
@@ -156,7 +172,7 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                             profilePicturePath: _profilePicturePath,
                             name: name,
                             nickname: nickname,
-                            number: number,
+                            number: _number,
                             email: email,
                             address: address,
                             grades: grades,
