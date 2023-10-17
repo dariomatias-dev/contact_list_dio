@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import 'package:contact_list/src/models/basic_contact_model.dart';
 
@@ -17,23 +18,36 @@ class ContactListWidget extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 10.0),
-        ListView.separated(
-          itemCount: contacts.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          separatorBuilder: (context, index) {
-            return const SizedBox(
-              height: 10.0,
-            );
-          },
-          itemBuilder: (context, index) {
-            final BasicContactModel contact = contacts.elementAt(index);
+        AnimationLimiter(
+          child: ListView.separated(
+            itemCount: contacts.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            separatorBuilder: (context, index) {
+              return const SizedBox(
+                height: 10.0,
+              );
+            },
+            itemBuilder: (context, index) {
+              final BasicContactModel contact = contacts.elementAt(index);
 
-            return ContactCardWidget(
-              screenContext: context,
-              contact: contact,
-            );
-          },
+              return AnimationConfiguration.staggeredList(
+                position: index,
+                duration: const Duration(
+                  milliseconds: 375,
+                ),
+                child: SlideAnimation(
+                  verticalOffset: 50.0,
+                  child: FadeInAnimation(
+                    child: ContactCardWidget(
+                      screenContext: context,
+                      contact: contact,
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
         ),
         const SizedBox(height: 20.0),
       ],
