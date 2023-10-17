@@ -55,7 +55,8 @@ class ContactCardWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                 ),
-                child: contact.profilePicturePath != null
+                child: (contact.profilePicturePath != null &&
+                        contact.profilePicturePath!.isNotEmpty)
                     ? Image.file(
                         File(contact.profilePicturePath!),
                         fit: BoxFit.cover,

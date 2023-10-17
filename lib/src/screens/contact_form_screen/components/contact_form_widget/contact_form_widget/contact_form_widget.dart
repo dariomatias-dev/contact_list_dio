@@ -32,17 +32,18 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
   final ContactsService _contactsService = ContactsService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String? _profilePicturePath;
+  String _profilePicturePath = '';
   final TextEditingController _nameFieldController = TextEditingController();
   final TextEditingController _nicknameFieldController =
       TextEditingController();
   String _number = '';
+  final TextEditingController _numberFieldController = TextEditingController();
   final TextEditingController _emailFieldController = TextEditingController();
   final TextEditingController _addressFieldController = TextEditingController();
   final TextEditingController _gradesFieldController = TextEditingController();
 
   void _updateProfilePicturePath(String? path) {
-    _profilePicturePath = path;
+    _profilePicturePath = path ?? '';
   }
 
   void _updateNumber(String number) {
@@ -50,9 +51,11 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
   }
 
   void _fillFields(ContactModel contact) {
-    _profilePicturePath = contact.profilePicturePath;
+    _profilePicturePath = contact.profilePicturePath ?? '';
     _nameFieldController.text = contact.name;
     _nicknameFieldController.text = contact.nickname ?? '';
+    _numberFieldController.text =
+        contact.number.split(' ').sublist(1).join(' ');
     _emailFieldController.text = contact.email ?? '';
     _addressFieldController.text = contact.address ?? '';
     _gradesFieldController.text = contact.grades ?? '';
@@ -70,6 +73,7 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
   void dispose() {
     _nameFieldController.dispose();
     _nicknameFieldController.dispose();
+    _numberFieldController.dispose();
     _emailFieldController.dispose();
     _addressFieldController.dispose();
     _gradesFieldController.dispose();
@@ -108,12 +112,10 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                   const SizedBox(height: 10.0),
                   ChooseAvatarIconWidget(
                     screenContext: context,
+                    profilePicturePath: _profilePicturePath,
                     updateProfilePicturePath: _updateProfilePicturePath,
                   ),
                   const SizedBox(height: 16.0),
-
-                  //
-
                   FormFieldWidget(
                     title: 'Nome',
                     placeholder: 'Dário Matias',
@@ -128,6 +130,7 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                   ),
                   const SizedBox(height: 16.0),
                   PhoneNumberInputWidget(
+                    controller: _numberFieldController,
                     updateNumber: _updateNumber,
                   ),
                   const SizedBox(height: 16.0),
@@ -153,8 +156,6 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                     maxLines: 6,
                     required: false,
                   ),
-                  //
-
                   const SizedBox(height: 24.0),
                   SizedBox(
                     width: double.infinity,

@@ -15,10 +15,12 @@ class ChooseAvatarIconWidget extends StatefulWidget {
   const ChooseAvatarIconWidget({
     super.key,
     required this.screenContext,
+    required this.profilePicturePath,
     required this.updateProfilePicturePath,
   });
 
   final BuildContext screenContext;
+  final String profilePicturePath;
   final void Function(String?) updateProfilePicturePath;
 
   @override
@@ -85,6 +87,8 @@ class _ChooseAvatarIconWidgetState extends State<ChooseAvatarIconWidget> {
 
   @override
   Widget build(BuildContext context) {
+    profilePicturePath = widget.profilePicturePath;
+
     return Align(
       alignment: Alignment.center,
       child: Stack(

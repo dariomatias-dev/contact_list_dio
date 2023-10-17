@@ -5,15 +5,18 @@ import 'package:intl_phone_number_field/intl_phone_number_field.dart';
 class PhoneNumberInputWidget extends StatelessWidget {
   const PhoneNumberInputWidget({
     super.key,
+    required this.controller,
     required this.updateNumber,
   });
 
+  final TextEditingController controller;
   final void Function(String) updateNumber;
 
   @override
   Widget build(BuildContext context) {
     return InternationalPhoneNumberInput(
       betweenPadding: 10.0,
+      controller: controller,
       countryConfig: CountryConfig(
         decoration: BoxDecoration(
           border: Border.all(
