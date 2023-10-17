@@ -92,14 +92,8 @@ class _HomeScreenBodyContentWidgetState
 
     return RefreshIndicator(
       onRefresh: _onRefresh,
-      child: CustomScrollView(
-        slivers: <Widget>[
-          SliverFillRemaining(
-            child: ContactListWidget(
-              contacts: _contacts,
-            ),
-          ),
-        ],
+      child: ContactListWidget(
+        contacts: _contacts,
       ),
     );
   }

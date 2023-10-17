@@ -10,7 +10,6 @@ import 'package:contact_list/src/services/contacts_service.dart';
 
 import 'package:contact_list/src/widgets/contact_list_widget/contact_list_widget.dart';
 import 'package:contact_list/src/widgets/custom_app_bar_widget.dart';
-import 'package:contact_list/src/widgets/elegant_message_widget.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -23,6 +22,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final ContactsService contactsService = ContactsService();
   String query = '';
   bool showContent = false;
+  final double iconSize = 80;
 
   void search(String value) {
     if (value.isEmpty) {
@@ -67,10 +67,30 @@ class _SearchScreenState extends State<SearchScreen> {
                 );
               },
             )
-          : const Center(
-              child: ElegantMessageWidget(
-                message: 'Comece digitando um contato no campo acima',
-              ),
+          : Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  color: Colors.transparent,
+                ),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  child: Container(
+                    width: MediaQuery.sizeOf(context).width,
+                    height: MediaQuery.sizeOf(context).height - iconSize,
+                    color: Colors.transparent,
+                    child: Center(
+                      child: Icon(
+                        Icons.call,
+                        color: Colors.grey.shade200,
+                        size: iconSize,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
     );
   }

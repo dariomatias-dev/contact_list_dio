@@ -181,30 +181,32 @@ class ContactScreenBodyContent extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 24.0),
-                const Text(
-                  'Nota',
-                  style: TextStyle(
-                    fontSize: 17.0,
-                    fontWeight: FontWeight.w600,
+                if (contact.grades != null && contact.grades!.isNotEmpty) ...[
+                  const Text(
+                    'Nota',
+                    style: TextStyle(
+                      fontSize: 17.0,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 6.0),
-                TextFormField(
-                  initialValue: contact.grades,
-                  textAlign: TextAlign.justify,
-                  maxLines: 6,
-                  decoration: const InputDecoration(
-                    hintText: 'Adicione uma nota',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 0.2,
-                      ),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8.0),
+                  const SizedBox(height: 6.0),
+                  TextFormField(
+                    initialValue: contact.grades,
+                    textAlign: TextAlign.justify,
+                    maxLines: 6,
+                    decoration: const InputDecoration(
+                      hintText: 'Adicione uma nota',
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 0.2,
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8.0),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ],
             ),
           ),
