@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: CustomAppBarWidget(
         showExitButton: false,
-        title: 'Contatos',
+        title: 'Lista de Contatos',
         centerTitle: true,
         actions: [
           IconButton(
