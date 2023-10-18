@@ -44,7 +44,7 @@ dependencies:
   dio: ^5.3.3
   logger: ^2.0.2+1
   flutter_staggered_animations: ^1.1.1
-  intl_phone_number_field: ^0.1.8
+  mask_text_input_formatter: ^2.5.0
 
 dev_dependencies:
   flutter_test:

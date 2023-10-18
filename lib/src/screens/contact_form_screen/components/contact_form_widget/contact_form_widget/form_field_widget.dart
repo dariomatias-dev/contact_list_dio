@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class FormFieldWidget extends StatelessWidget {
   const FormFieldWidget({
@@ -6,6 +7,7 @@ class FormFieldWidget extends StatelessWidget {
     required this.title,
     this.placeholder,
     required this.controller,
+    this.inputFormatters,
     this.minLength,
     this.maxLines = 1,
     this.required = true,
@@ -14,6 +16,7 @@ class FormFieldWidget extends StatelessWidget {
   final String title;
   final String? placeholder;
   final TextEditingController controller;
+  final List<TextInputFormatter>? inputFormatters;
   final int? minLength;
   final int maxLines;
   final bool required;
@@ -30,6 +33,7 @@ class FormFieldWidget extends StatelessWidget {
         alignLabelWithHint: true,
         hintText: placeholder,
       ),
+      inputFormatters: inputFormatters,
       validator: (value) {
         final String? trimmedValue = value?.trim();
 

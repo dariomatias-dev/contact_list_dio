@@ -9,14 +9,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.4.6"
-  args:
-    dependency: transitive
-    description:
-      name: args
-      sha256: eef6c46b622e0494a36c5a12d10d77fb4e855501a91c1b9ef9339326e58f0596
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.2"
   async:
     dependency: transitive
     description:
@@ -25,22 +17,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
-  base58check:
-    dependency: transitive
-    description:
-      name: base58check
-      sha256: "6c300dfc33e598d2fe26319e13f6243fea81eaf8204cb4c6b69ef20a625319a5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
-  bech32:
-    dependency: transitive
-    description:
-      name: bech32
-      sha256: "156cbace936f7720c79a79d16a03efad343b1ef17106716e04b8b8e39f99f7f7"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -81,14 +57,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
-  country_flags:
-    dependency: transitive
-    description:
-      name: country_flags
-      sha256: "500ba4d1052cc50848f1207cfd041cc91ee60e08492b2ccd8d7916980c75d63e"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.1"
   cross_file:
     dependency: transitive
     description:
@@ -190,14 +158,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-  flutter_multi_formatter:
-    dependency: transitive
-    description:
-      name: flutter_multi_formatter
-      sha256: bfef1fb7357b5be34cdf7797da361d185f6e873e2f3d2704dbfa56181d021543
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.11.14"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -344,30 +304,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.18.1"
-  intl_phone_number_field:
-    dependency: "direct main"
-    description:
-      name: intl_phone_number_field
-      sha256: "44f565c89ffe83e2c6d5f887a11769cbff8628c415bf3f0ed8eaa2cb982f9a2b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.8"
-  jovial_misc:
-    dependency: transitive
-    description:
-      name: jovial_misc
-      sha256: f6e64f789ee311025bb367be9c9afe9759f76dd8209070b7f38e735b5f529eb1
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.5"
-  jovial_svg:
-    dependency: transitive
-    description:
-      name: jovial_svg
-      sha256: "7a05dccecbc994b912dcb6307de6dbc58510b2e3a1cb43dd31e4e36c42da1f40"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.18"
   js:
     dependency: transitive
     description:
@@ -376,14 +312,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.7"
-  json_annotation:
-    dependency: transitive
-    description:
-      name: json_annotation
-      sha256: b10a7b2ff83d83c777edba3c6a0f97045ddadd56c944e1a23a3fdf43a1bf4467
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.8.1"
   lints:
     dependency: transitive
     description:
@@ -400,6 +328,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2+1"
+  mask_text_input_formatter:
+    dependency: "direct main"
+    description:
+      name: mask_text_input_formatter
+      sha256: "2056a9b8303f71003b9c06c6f71443504f3ca9f4b79b1aa40c9f0f62f9d312cf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.0"
   matcher:
     dependency: transitive
     description:

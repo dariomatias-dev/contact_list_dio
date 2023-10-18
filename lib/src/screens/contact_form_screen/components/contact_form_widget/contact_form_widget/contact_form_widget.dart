@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import 'package:contact_list/src/core/helpers/verifications_helper.dart';
 
@@ -6,8 +7,9 @@ import 'package:contact_list/src/enums/enums.dart';
 
 import 'package:contact_list/src/models/contact_model.dart';
 
+import 'package:contact_list/src/providers/contact_list_inherited_list.dart';
+
 import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/contact_form_widget/form_field_widget.dart';
-import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/contact_form_widget/phone_number_input_widget.dart';
 import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/choose_avatar_icon_widget.dart';
 
 import 'package:contact_list/src/services/contacts_service.dart';
@@ -36,7 +38,6 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
   final TextEditingController _nameFieldController = TextEditingController();
   final TextEditingController _nicknameFieldController =
       TextEditingController();
-  String _number = '';
   final TextEditingController _numberFieldController = TextEditingController();
   final TextEditingController _emailFieldController = TextEditingController();
   final TextEditingController _addressFieldController = TextEditingController();
@@ -44,10 +45,6 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
 
   void _updateProfilePicturePath(String? path) {
     _profilePicturePath = path ?? '';
-  }
-
-  void _updateNumber(String number) {
-    _number = number;
   }
 
   void _fillFields(ContactModel contact) {
@@ -129,9 +126,17 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                     minLength: 3,
                   ),
                   const SizedBox(height: 16.0),
-                  PhoneNumberInputWidget(
+                  FormFieldWidget(
+                    title: 'Telefone',
+                    placeholder: '+55 (83) 98640-4371',
                     controller: _numberFieldController,
-                    updateNumber: _updateNumber,
+                    inputFormatters: [
+                      MaskTextInputFormatter(
+                        mask: '+## (##) #####-####',
+                        filter: {"#": RegExp(r'[0-9]')},
+                      )
+                    ],
+                    minLength: 19,
                   ),
                   const SizedBox(height: 16.0),
                   FormFieldWidget(
@@ -165,6 +170,7 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                         if (_formKey.currentState!.validate()) {
                           final String name = _nameFieldController.text;
                           final String nickname = _nicknameFieldController.text;
+                          final String number = _numberFieldController.text;
                           final String email = _emailFieldController.text;
                           final String address = _addressFieldController.text;
                           final String grades = _gradesFieldController.text;
@@ -173,7 +179,7 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                             profilePicturePath: _profilePicturePath,
                             name: name,
                             nickname: nickname,
-                            number: _number,
+                            number: number,
                             email: email,
                             address: address,
                             grades: grades,
@@ -182,10 +188,16 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                           if (formType == FormTypeEnum.create) {
                             _contactsService.createContact(contact);
                           } else {
+                            final updateContactScreen =
+                                ContactListInheritedWidget.of(context)!
+                                    .updateContactScreen;
+
                             _contactsService.updateContact(
                               widget.objectId!,
                               contact,
                             );
+
+                            updateContactScreen.value = true;
                           }
 
                           Navigator.pop(widget.screenContext);

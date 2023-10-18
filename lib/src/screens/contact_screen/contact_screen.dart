@@ -1,3 +1,4 @@
+import 'package:contact_list/src/providers/contact_list_inherited_list.dart';
 import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/core/helpers/navigation_fade_transition_help.dart';
@@ -31,83 +32,93 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactScreenState extends State<ContactScreen> {
   final ContactsService contactsService = ContactsService();
-
   void _closeScreen() {
     Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: contactsService.getContact(widget.objectId),
-      builder: (context, snapshot) {
-        final verificationsResult = verificationsHelper(snapshot);
+    final updateContactScreen =
+        ContactListInheritedWidget.of(context)!.updateContactScreen;
 
-        if (verificationsResult != null) {
-          return Scaffold(
-            backgroundColor: Colors.grey.shade50,
-            appBar: const CustomAppBarWidget(
-              title: 'Contato',
-            ),
-            body: Center(
-              child: verificationsResult,
-            ),
-          );
-        }
+    final value = updateContactScreen.value;
 
-        final ContactModel contact = snapshot.data!;
+    return ListenableBuilder(
+      listenable: updateContactScreen,
+      builder: (context, child) {
+        return FutureBuilder(
+          future: value ? contactsService.getContact(widget.objectId) : null,
+          builder: (context, snapshot) {
+            final verificationsResult = verificationsHelper(snapshot);
 
-        return Scaffold(
-          backgroundColor: Colors.grey.shade50,
-          appBar: CustomAppBarWidget(
-            title: 'Contato',
-            actions: <Widget>[
-              PopupMenuButton(
-                icon: const Icon(
-                  Icons.more_vert_rounded,
-                  color: Colors.black,
+            if (verificationsResult != null) {
+              return Scaffold(
+                backgroundColor: Colors.grey.shade50,
+                appBar: const CustomAppBarWidget(
+                  title: 'Contato',
                 ),
-                itemBuilder: (context) => <PopupMenuItem>[
-                  PopupMenuItem(
-                    onTap: () {
-                      navigationFadeTransitionHelp(
-                        context,
-                        ContactListRouteNames.contactForm,
-                        () => ContactFormScreen(
-                          formType: FormTypeEnum.update,
-                          objectId: contact.objectId,
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Atualizar',
-                    ),
-                  ),
-                  PopupMenuItem(
-                    onTap: () async {
-                      final bool isConfirmed =
-                          await showDeleteConfirmationDialog(
-                        context,
-                        contact.objectId!,
-                      );
+                body: Center(
+                  child: verificationsResult,
+                ),
+              );
+            }
 
-                      if (isConfirmed) {
-                        _closeScreen();
-                      }
-                    },
-                    child: const Text(
-                      'Excluir',
+            updateContactScreen.value = false;
+            final ContactModel contact = snapshot.data!;
+
+            return Scaffold(
+              backgroundColor: Colors.grey.shade50,
+              appBar: CustomAppBarWidget(
+                title: 'Contato',
+                actions: <Widget>[
+                  PopupMenuButton(
+                    icon: const Icon(
+                      Icons.more_vert_rounded,
+                      color: Colors.black,
                     ),
-                  ),
+                    itemBuilder: (context) => <PopupMenuItem>[
+                      PopupMenuItem(
+                        onTap: () {
+                          navigationFadeTransitionHelp(
+                            context,
+                            ContactListRouteNames.contactForm,
+                            () => ContactFormScreen(
+                              formType: FormTypeEnum.update,
+                              objectId: contact.objectId,
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Atualizar',
+                        ),
+                      ),
+                      PopupMenuItem(
+                        onTap: () async {
+                          final bool isConfirmed =
+                              await showDeleteConfirmationDialog(
+                            context,
+                            contact.objectId!,
+                          );
+
+                          if (isConfirmed) {
+                            _closeScreen();
+                          }
+                        },
+                        child: const Text(
+                          'Excluir',
+                        ),
+                      ),
+                    ],
+                  )
                 ],
-              )
-            ],
-          ),
-          body: SingleChildScrollView(
-            child: ContactScreenBodyContent(
-              contact: contact,
-            ),
-          ),
+              ),
+              body: SingleChildScrollView(
+                child: ContactScreenBodyContent(
+                  contact: contact,
+                ),
+              ),
+            );
+          },
         );
       },
     );
