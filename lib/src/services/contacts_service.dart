@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
 import 'package:contact_list/src/core/rest_client/rest_client.dart';
@@ -97,7 +98,11 @@ class ContactsService {
     }
   }
 
-  Future<void> updateContact(String objectId, ContactModel contact) async {
+  Future<void> updateContact(
+    String objectId,
+    ContactModel contact,
+    VoidCallback? updateScreen,
+  ) async {
     final Map<String, dynamic> map = removeNullValues(
       contact.toMap(),
     );
@@ -107,6 +112,10 @@ class ContactsService {
         objectId,
         data: map,
       );
+      
+      if (updateScreen != null) {
+        updateScreen();
+      }
       contactsServiceNotifier.notify();
     } catch (err, stackTrace) {
       logger.e(

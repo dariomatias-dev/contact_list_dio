@@ -7,8 +7,6 @@ import 'package:contact_list/src/enums/enums.dart';
 
 import 'package:contact_list/src/models/contact_model.dart';
 
-import 'package:contact_list/src/providers/contact_list_inherited_list.dart';
-
 import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/contact_form_widget/form_field_widget.dart';
 import 'package:contact_list/src/screens/contact_form_screen/components/contact_form_widget/choose_avatar_icon_widget.dart';
 
@@ -18,13 +16,15 @@ class ContactFormWidget extends StatefulWidget {
   const ContactFormWidget({
     super.key,
     required this.screenContext,
-    required this.formType,
     this.objectId,
+    required this.formType,
+    this.updateScreen,
   });
 
   final BuildContext screenContext;
-  final FormTypeEnum formType;
   final String? objectId;
+  final FormTypeEnum formType;
+  final VoidCallback? updateScreen;
 
   @override
   State<ContactFormWidget> createState() => _ContactFormWidgetState();
@@ -51,8 +51,7 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
     _profilePicturePath = contact.profilePicturePath;
     _nameFieldController.text = contact.name;
     _nicknameFieldController.text = contact.nickname ?? '';
-    _numberFieldController.text =
-        contact.number.split(' ').sublist(1).join(' ');
+    _numberFieldController.text = contact.number;
     _emailFieldController.text = contact.email ?? '';
     _addressFieldController.text = contact.address ?? '';
     _gradesFieldController.text = contact.grades ?? '';
@@ -188,16 +187,11 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
                           if (formType == FormTypeEnum.create) {
                             _contactsService.createContact(contact);
                           } else {
-                            final updateContactScreen =
-                                ContactListInheritedWidget.of(context)!
-                                    .updateContactScreen;
-
                             _contactsService.updateContact(
                               widget.objectId!,
                               contact,
+                              widget.updateScreen,
                             );
-
-                            updateContactScreen.value = true;
                           }
 
                           Navigator.pop(widget.screenContext);

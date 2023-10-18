@@ -1,4 +1,3 @@
-import 'package:contact_list/src/providers/contact_list_inherited_list.dart';
 import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/core/helpers/navigation_fade_transition_help.dart';
@@ -37,89 +36,83 @@ class _ContactScreenState extends State<ContactScreen> {
     Navigator.pop(context);
   }
 
+  void _updateScreen() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    final updateContactScreen =
-        ContactListInheritedWidget.of(context)!.updateContactScreen;
+    return FutureBuilder(
+      future: contactsService.getContact(widget.objectId),
+      builder: (context, snapshot) {
+        final verificationsResult = verificationsHelper(snapshot);
 
-    final value = updateContactScreen.value;
+        if (verificationsResult != null) {
+          return Scaffold(
+            backgroundColor: Colors.grey.shade50,
+            appBar: const CustomAppBarWidget(
+              title: 'Contato',
+            ),
+            body: Center(
+              child: verificationsResult,
+            ),
+          );
+        }
 
-    return ListenableBuilder(
-      listenable: updateContactScreen,
-      builder: (context, child) {
-        return FutureBuilder(
-          future: value ? contactsService.getContact(widget.objectId) : null,
-          builder: (context, snapshot) {
-            final verificationsResult = verificationsHelper(snapshot);
+        final ContactModel contact = snapshot.data!;
 
-            if (verificationsResult != null) {
-              return Scaffold(
-                backgroundColor: Colors.grey.shade50,
-                appBar: const CustomAppBarWidget(
-                  title: 'Contato',
+        return Scaffold(
+          backgroundColor: Colors.grey.shade50,
+          appBar: CustomAppBarWidget(
+            title: 'Contato',
+            actions: <Widget>[
+              PopupMenuButton(
+                icon: const Icon(
+                  Icons.more_vert_rounded,
+                  color: Colors.black,
                 ),
-                body: Center(
-                  child: verificationsResult,
-                ),
-              );
-            }
-
-            updateContactScreen.value = false;
-            final ContactModel contact = snapshot.data!;
-
-            return Scaffold(
-              backgroundColor: Colors.grey.shade50,
-              appBar: CustomAppBarWidget(
-                title: 'Contato',
-                actions: <Widget>[
-                  PopupMenuButton(
-                    icon: const Icon(
-                      Icons.more_vert_rounded,
-                      color: Colors.black,
+                itemBuilder: (context) => <PopupMenuItem>[
+                  PopupMenuItem(
+                    onTap: () {
+                      navigationFadeTransitionHelp(
+                        context,
+                        ContactListRouteNames.contactForm,
+                        () => ContactFormScreen(
+                          formType: FormTypeEnum.update,
+                          objectId: contact.objectId,
+                          updateScreen: _updateScreen,
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Editar',
                     ),
-                    itemBuilder: (context) => <PopupMenuItem>[
-                      PopupMenuItem(
-                        onTap: () {
-                          navigationFadeTransitionHelp(
-                            context,
-                            ContactListRouteNames.contactForm,
-                            () => ContactFormScreen(
-                              formType: FormTypeEnum.update,
-                              objectId: contact.objectId,
-                            ),
-                          );
-                        },
-                        child: const Text(
-                          'Atualizar',
-                        ),
-                      ),
-                      PopupMenuItem(
-                        onTap: () async {
-                          final bool isConfirmed =
-                              await showDeleteConfirmationDialog(
-                            context,
-                            contact.objectId!,
-                          );
+                  ),
+                  PopupMenuItem(
+                    onTap: () async {
+                      final bool isConfirmed =
+                          await showDeleteConfirmationDialog(
+                        context,
+                        contact.objectId!,
+                      );
 
-                          if (isConfirmed) {
-                            _closeScreen();
-                          }
-                        },
-                        child: const Text(
-                          'Excluir',
-                        ),
-                      ),
-                    ],
-                  )
+                      if (isConfirmed) {
+                        _closeScreen();
+                      }
+                    },
+                    child: const Text(
+                      'Remover',
+                    ),
+                  ),
                 ],
-              ),
-              body: SingleChildScrollView(
-                child: ContactScreenBodyContent(
-                  contact: contact,
-                ),
-              ),
-            );
-          },
+              )
+            ],
+          ),
+          body: SingleChildScrollView(
+            child: ContactScreenBodyContent(
+              contact: contact,
+            ),
+          ),
         );
       },
     );

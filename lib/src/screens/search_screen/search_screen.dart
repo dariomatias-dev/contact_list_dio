@@ -1,3 +1,4 @@
+import 'package:contact_list/src/widgets/elegant_message_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/core/helpers/verifications_helper.dart';
@@ -62,9 +63,15 @@ class _SearchScreenState extends State<SearchScreen> {
 
                 final List<BasicContactModel> contacts = snapshot.data!;
 
-                return ContactListWidget(
-                  contacts: contacts,
-                );
+                return contacts.isNotEmpty
+                    ? ContactListWidget(
+                        contacts: contacts,
+                      )
+                    : Center(
+                        child: ElegantMessageWidget(
+                          message: 'Nenhum contato encontrado com: $query',
+                        ),
+                      );
               },
             )
           : Stack(

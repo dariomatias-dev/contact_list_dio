@@ -86,9 +86,14 @@ class _ChooseAvatarIconWidgetState extends State<ChooseAvatarIconWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     profilePicturePath = widget.profilePicturePath;
 
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,
       child: Stack(

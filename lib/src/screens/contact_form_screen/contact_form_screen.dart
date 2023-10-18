@@ -11,6 +11,7 @@ class ContactFormScreen extends StatelessWidget {
     super.key,
     required this.formType,
     this.objectId,
+    this.updateScreen,
   }) : assert(
           !(formType == FormTypeEnum.update && objectId == null),
           'When the form is of the update type, the objectId is mandatory.',
@@ -18,6 +19,7 @@ class ContactFormScreen extends StatelessWidget {
 
   final FormTypeEnum formType;
   final String? objectId;
+  final VoidCallback? updateScreen;
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +32,9 @@ class ContactFormScreen extends StatelessWidget {
       ),
       body: ContactFormWidget(
         screenContext: context,
-        formType: formType,
         objectId: objectId,
+        formType: formType,
+        updateScreen: updateScreen,
       ),
     );
   }

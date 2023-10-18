@@ -1,4 +1,3 @@
-import 'package:contact_list/src/providers/contact_list_inherited_list.dart';
 import 'package:flutter/material.dart';
 
 import 'package:contact_list/src/core/routes/contact_list_routes.dart';
@@ -15,13 +14,10 @@ class _ContactListAppState extends State<ContactListApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ContactListInheritedWidget(
-      updateContactScreen: updateContactScreen,
-      child: MaterialApp(
+    return MaterialApp(
         title: 'Lista de Contatos',
         debugShowCheckedModeBanner: false,
         routes: contactListRoutes,
-      ),
-    );
+      );
   }
 }
