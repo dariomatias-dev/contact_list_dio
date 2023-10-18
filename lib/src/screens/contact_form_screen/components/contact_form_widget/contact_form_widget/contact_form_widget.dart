@@ -34,7 +34,7 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
   final ContactsService _contactsService = ContactsService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String _profilePicturePath = '';
+  String? _profilePicturePath;
   final TextEditingController _nameFieldController = TextEditingController();
   final TextEditingController _nicknameFieldController =
       TextEditingController();
@@ -44,11 +44,11 @@ class _ContactFormWidgetState extends State<ContactFormWidget> {
   final TextEditingController _gradesFieldController = TextEditingController();
 
   void _updateProfilePicturePath(String? path) {
-    _profilePicturePath = path ?? '';
+    _profilePicturePath = path;
   }
 
   void _fillFields(ContactModel contact) {
-    _profilePicturePath = contact.profilePicturePath ?? '';
+    _profilePicturePath = contact.profilePicturePath;
     _nameFieldController.text = contact.name;
     _nicknameFieldController.text = contact.nickname ?? '';
     _numberFieldController.text =

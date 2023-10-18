@@ -20,7 +20,7 @@ class ChooseAvatarIconWidget extends StatefulWidget {
   });
 
   final BuildContext screenContext;
-  final String profilePicturePath;
+  final String? profilePicturePath;
   final void Function(String?) updateProfilePicturePath;
 
   @override

@@ -12,9 +12,14 @@ class BasicContactModel {
   final String number;
 
   factory BasicContactModel.fromMap(Map<String, dynamic> map) {
+    final String? profilePicturePathValue = map['profile_picture_path'];
+
     return BasicContactModel(
       objectId: map['objectId'],
-      profilePicturePath: map['profile_picture_path'],
+      profilePicturePath:
+          profilePicturePathValue != null && profilePicturePathValue.isNotEmpty
+              ? profilePicturePathValue
+              : null,
       name: map['name'],
       number: map['number'],
     );

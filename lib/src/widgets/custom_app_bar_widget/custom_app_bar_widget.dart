@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:contact_list/src/widgets/custom_app_bar_bottom_widget.dart';
+import 'package:contact_list/src/widgets/custom_app_bar_widget/custom_app_bar_bottom_widget.dart';
 
 class CustomAppBarWidget extends StatelessWidget
     implements PreferredSizeWidget {

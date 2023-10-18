@@ -14,7 +14,10 @@ class CustomAppBarBottomWidget extends StatelessWidget
       child: Container(
         color: Colors.grey.shade200,
         height: 1.0,
-        width: MediaQuery.of(context).size.width - 40.0,
+        margin: const EdgeInsets.symmetric(
+          horizontal: 20.0,
+        ),
+        width: MediaQuery.of(context).size.width,
       ),
     );
   }

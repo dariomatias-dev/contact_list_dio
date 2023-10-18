@@ -9,7 +9,7 @@ import 'package:contact_list/src/screens/contact_form_screen/contact_form_screen
 import 'package:contact_list/src/screens/home_screen/components/home_screen_body_content_widget.dart';
 import 'package:contact_list/src/screens/search_screen/search_screen.dart';
 
-import 'package:contact_list/src/widgets/custom_app_bar_widget.dart';
+import 'package:contact_list/src/widgets/custom_app_bar_widget/custom_app_bar_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

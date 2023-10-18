@@ -9,7 +9,7 @@ import 'package:contact_list/src/screens/search_screen/components/research_field
 import 'package:contact_list/src/services/contacts_service.dart';
 
 import 'package:contact_list/src/widgets/contact_list_widget/contact_list_widget.dart';
-import 'package:contact_list/src/widgets/custom_app_bar_widget.dart';
+import 'package:contact_list/src/widgets/custom_app_bar_widget/custom_app_bar_widget.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

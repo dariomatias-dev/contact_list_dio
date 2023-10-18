@@ -16,7 +16,7 @@ import 'package:contact_list/src/services/contacts_service.dart';
 
 import 'package:contact_list/src/utils/show_delete_confirmation_dialog.dart';
 
-import 'package:contact_list/src/widgets/custom_app_bar_widget.dart';
+import 'package:contact_list/src/widgets/custom_app_bar_widget/custom_app_bar_widget.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({
@@ -32,6 +32,7 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactScreenState extends State<ContactScreen> {
   final ContactsService contactsService = ContactsService();
+
   void _closeScreen() {
     Navigator.pop(context);
   }

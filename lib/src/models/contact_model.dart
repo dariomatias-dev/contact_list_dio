@@ -24,15 +24,28 @@ class ContactModel {
   final DateTime? updatedAt;
 
   factory ContactModel.fromMap(Map<String, dynamic> map) {
+    final String? profilePicturePathValue = map['profile_picture_path'];
+    final String? nicknameValue = map['nickname'];
+    final String? emailValue = map['email'];
+    final String? addressValue = map['address'];
+    final String? gradesValue = map['grades'];
+
     return ContactModel(
       objectId: map['objectId'],
-      profilePicturePath: map['profile_picture_path'],
+      profilePicturePath:
+          profilePicturePathValue != null && profilePicturePathValue.isNotEmpty
+              ? profilePicturePathValue
+              : null,
       name: map['name'],
-      nickname: map['nickname'],
+      nickname: nicknameValue != null && nicknameValue.isNotEmpty
+          ? nicknameValue
+          : null,
       number: map['number'],
-      email: map['email'],
-      address: map['address'],
-      grades: map['grades'],
+      email: emailValue != null && emailValue.isNotEmpty ? emailValue : null,
+      address:
+          addressValue != null && addressValue.isNotEmpty ? addressValue : null,
+      grades:
+          gradesValue != null && gradesValue.isNotEmpty ? gradesValue : null,
       createdAt: DateTime.parse(map['createdAt']),
       updatedAt: DateTime.parse(map['updatedAt']),
     );
